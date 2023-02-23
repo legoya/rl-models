@@ -3,9 +3,8 @@ using src.models;
 namespace src.games.TicTacToe;
 
 
-public class TicTacToeMove : IMove
+public class TicTacToeMove : Move
 {
-    public int Player {get; set;}
     public int Row  {get; set;}
     public int Column {get; set;}
 
@@ -17,10 +16,8 @@ public class TicTacToeMove : IMove
     }
 }
 
-public class X : IMove
+public class X : Move
 {
-    public int Player {get; set;}
-
     public X(int player)
     {
         Player = player;

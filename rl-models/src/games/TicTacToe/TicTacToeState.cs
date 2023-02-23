@@ -24,23 +24,17 @@ public class TicTacToeState : State
     private int[,] _squares;
     
 
-    public override void Update(IMove move)
+    public override void Update(Move move)
     {
-        if (move is TicTacToeMove)
+        if (move is not TicTacToeMove)
         {
-            Update((TicTacToeMove)move);
-            return;
+            throw new ArgumentException("TicTacToeMove must be supplied to TicTacToeState.Update(IMove)");
         }
 
-        throw new ArgumentException("TicTacToeMove must be supplied to TicTacToeState.Update(IMove)");
+        Console.WriteLine("Update called with TicTacToeMove type move in TicTacToeState");   
     }
 
-    private void Update(TicTacToeMove move)
-    {
-        Console.WriteLine("Update called with TicTacToeMove type move in TicTacToeState");
-    }
-
-    public override bool HasWinner(IMove move)
+    public override bool HasWinner(Move move)
     {
         Console.WriteLine("HasWinner called in TicTacToeState");
         return false;

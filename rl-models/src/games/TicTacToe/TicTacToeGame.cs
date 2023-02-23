@@ -19,17 +19,17 @@ public class TicTacToeGame : Game
         throw new NotImplementedException();
     }
 
-    public override State CalculateStateAfterMove(IMove move)
+    public override State CalculateStateAfterMove(Move move)
     {
         throw new NotImplementedException();
     }
 
-    public override void MakeMove(IMove move)
+    public override void MakeMove(Move move)
     {
         throw new NotImplementedException();
     }
 
-    public override GameResult GameResult(IMove move)
+    public override GameResult GameResult(Move move)
     {
         throw new NotImplementedException();
     }

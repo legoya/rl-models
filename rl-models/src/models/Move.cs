@@ -1,6 +1,6 @@
 namespace src.models;
 
-public interface IMove
+public abstract class Move
 {
     public int Player {get; set;}
 } 

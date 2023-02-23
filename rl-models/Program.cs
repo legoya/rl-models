@@ -8,11 +8,7 @@ Console.WriteLine("Hello, World!");
 var ttts = new TicTacToeState(3);
 var tttm = new TicTacToeMove(1, 1, 1);
 
-var tttx = new X(1);
+var x = new X(1);
 
-
-ttts.Update(tttm);
+ttts.Update(x);
 ttts.HasWinner(tttm);
-
-ttts.Update(tttx);
-
