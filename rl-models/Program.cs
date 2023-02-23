@@ -6,9 +6,15 @@ using src.models;
 Console.WriteLine("Hello, World!");
 
 var ttts = new TicTacToeState(3);
-var tttm = new TicTacToeMove(1, 1, 1);
 
-var x = new X(1);
+var m1 = new TicTacToeMove(1, 1, 1);
+ttts.Update(m1);
+Console.WriteLine(ttts.HasWinner(m1));
 
-ttts.Update(x);
-ttts.HasWinner(tttm);
+var m2 = new TicTacToeMove(1, 1, 1);
+ttts.Update(m1);
+Console.WriteLine(ttts.HasWinner(m2));
+
+var m3 = new TicTacToeMove(1, 1, 1);
+ttts.Update(m1);
+Console.WriteLine(ttts.HasWinner(m3));

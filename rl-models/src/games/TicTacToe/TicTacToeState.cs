@@ -28,15 +28,32 @@ public class TicTacToeState : State
     {
         if (move is not TicTacToeMove)
         {
-            throw new ArgumentException("TicTacToeMove must be supplied to TicTacToeState.Update(IMove)");
+            throw new ArgumentException("TicTacToeMove must be supplied to TicTacToeState.Update(Move)");
         }
 
-        Console.WriteLine("Update called with TicTacToeMove type move in TicTacToeState");   
+        var (Player, Row, Column) = ( (TicTacToeMove) move ).Decompose();  // TODO: this casting can likely be done better.
+
+        _squares[Row, Column] = Player;
+        
+        _rowScores[Row] += Player;
+        _columnScores[Column] += Player;
+
+        if (Row == Column) { _diagonalScore += Player; }
+        if (Row + Column == _size - 1) { _offDiagonalScore += Player; }
     }
 
     public override bool HasWinner(Move move)
     {
-        Console.WriteLine("HasWinner called in TicTacToeState");
+        if (move is not TicTacToeMove)
+        {
+            throw new ArgumentException("TicTacToeMove must be supplied to TicTacToeState.HasWinner(Move)");
+        }
+
+        var (Player, Row, Column) = ( (TicTacToeMove) move ).Decompose();
+
+        if (Math.Abs(_rowScores[Row]) == _size || Math.Abs(_columnScores[Column]) == _size) { return true; }
+        if (Math.Abs(_diagonalScore) == _size || Math.Abs(_offDiagonalScore) == _size) { return true; }
+
         return false;
     }
 }

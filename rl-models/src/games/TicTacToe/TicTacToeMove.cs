@@ -14,6 +14,11 @@ public class TicTacToeMove : Move
         Row = row;
         Column = column;
     }
+
+    public (int, int, int) Decompose()
+    {
+        return (Player, Row, Column);
+    }
 }
 
 public class X : Move
