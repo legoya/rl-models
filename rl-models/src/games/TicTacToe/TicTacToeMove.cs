@@ -1,5 +1,6 @@
 using src.models;
 
+
 namespace src.games.TicTacToe;
 
 
@@ -18,13 +19,5 @@ public class TicTacToeMove : Move
     public (int, int, int) Decompose()
     {
         return (Player, Row, Column);
-    }
-}
-
-public class X : Move
-{
-    public X(int player)
-    {
-        Player = player;
     }
 }
