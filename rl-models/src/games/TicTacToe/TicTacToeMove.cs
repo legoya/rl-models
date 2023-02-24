@@ -1,23 +1,21 @@
-using src.models;
+// using src.models;
 
 
-namespace src.games.TicTacToe;
+// namespace src.games.TicTacToe;
 
 
-public class TicTacToeMove : Move
-{
-    public int Row  {get; set;}
-    public int Column {get; set;}
+// public class TicTacToeMove : Move<CoordinateMoveLocation>
+// {
+//     public override CoordinateMoveLocation MoveLocation {get; set;}
 
-    public TicTacToeMove(int player, int row, int column)
-    {
-        Player = player;
-        Row = row;
-        Column = column;
-    }
+//     public TicTacToeMove(int player, int row, int column)
+//     {
+//         Player = player;
+//         MoveLocation = new CoordinateMoveLocation(row, column);
+//     }
 
-    public (int, int, int) Decompose()
-    {
-        return (Player, Row, Column);
-    }
-}
+//     public (int, int, int) Decompose()
+//     {
+//         return (Player, MoveLocation.Row, MoveLocation.Column);
+//     }
+// }

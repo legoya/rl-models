@@ -1,20 +1,11 @@
-﻿using src.games.TicTacToe;
-using src.models;
+﻿using src;
+using src.games.TicTacToe;
 
 
-// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+var g = new TicTacToeGame(3);
 
-var ttts = new TicTacToeState(3);
+var h1 = new HumanAgent(1);
+var h2 = new HumanAgent(-1);
 
-var m1 = new TicTacToeMove(1, 1, 1);
-ttts.Update(m1);
-Console.WriteLine(ttts.HasWinner(m1));
-
-var m2 = new TicTacToeMove(1, 1, 1);
-ttts.Update(m1);
-Console.WriteLine(ttts.HasWinner(m2));
-
-var m3 = new TicTacToeMove(1, 1, 1);
-ttts.Update(m1);
-Console.WriteLine(ttts.HasWinner(m3));
+var p = new Play(g, h1, h2);
+p.start();

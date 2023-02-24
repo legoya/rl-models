@@ -3,69 +3,66 @@ using src.models;
 
 namespace src.games.TicTacToe;
 
-
-public class TicTacToeGame : Game
+public class TicTacToeGame : Game<CoordinateMoveLocation>
 {
-    private HashSet<CoordinateMoveLocation> _availableMoves;
-    private TicTacToeState _state;
+    public override HashSet<CoordinateMoveLocation> AvailableLocations {get;}
+    public override TicTacToeState State {get;}
 
     public TicTacToeGame(int size)
     {
-        _availableMoves = TicTacToeGame.initialiseAvailableMoves(size);
-        _state = new TicTacToeState(size);
+        AvailableLocations = TicTacToeGame.initialiseAvailableLocations(size);
+        State = new TicTacToeState(size);
     }
 
     public override string ToString()
     {
         var output = "";
-        for (int row = 0; row < _state.Squares.Count; row++) 
+        for (int row = 0; row < State.Squares.Count; row++) 
         {
-            var rowString = String.Join("", _state.Squares[row]) + "\n";
+            var rowString = String.Join("", State.Squares[row]) + "\n";
             output += rowString;
         }
 
         return output;
     }
 
-    public override State CalculateStateAfterMove(Move move)
+    public override State<CoordinateMoveLocation> CalculateStateAfterMove(int player, CoordinateMoveLocation moveLocation)
     {
-        var StateCopy = new TicTacToeState(_state);
-        StateCopy.Update(move);
+        var StateCopy = new TicTacToeState(State);
+        StateCopy.Update(player, moveLocation);
 
         return StateCopy;
     }
 
-    public override void MakeMove(Move move)
+    public override void MakeMove(int player, CoordinateMoveLocation moveLocation)
     {
-        var (Player, Row, Column) = ( (TicTacToeMove) move ).Decompose();
-        var location = new CoordinateMoveLocation(Row, Column);
+        var location = new CoordinateMoveLocation(moveLocation);
         
-        _availableMoves.Remove(location);
-        _state.Update(move);
+        AvailableLocations.Remove(location);
+        State.Update(player, moveLocation);
     }
 
-    public override GameResult GameResult(Move move)
+    public override GameResult GameResult(int player, CoordinateMoveLocation moveLocation)
     {
-        var (Player, Row, Column) = ( (TicTacToeMove) move ).Decompose();
 
-        if (_state.HasWinner(move))
+        if (State.HasWinner(player, moveLocation))
         {
-            return Player == 1 ? models.GameResult.Player1Win : models.GameResult.Player2Win;
+            return player == 1 ? models.GameResult.Player1Win : models.GameResult.Player2Win;
         }
 
-        if (_availableMoves.Count == 0) { return models.GameResult.Draw; }
+        if (AvailableLocations.Count == 0) { return models.GameResult.Draw; }
 
         return models.GameResult.Incomplete;
 
     }
 
-    private static HashSet<CoordinateMoveLocation> initialiseAvailableMoves(int size)
+    private static HashSet<CoordinateMoveLocation> initialiseAvailableLocations(int size)
     {
         HashSet<CoordinateMoveLocation> output = new();
 
-        foreach (int row in Enumerable.Range(0, size-1))
+        foreach (int row in Enumerable.Range(0, size - 1))
         {
-            foreach (int column in Enumerable.Range(0, size-1))
+            foreach (int column in Enumerable.Range(0, size - 1))
             {
                 var location = new CoordinateMoveLocation(row, column);
                 output.Add(location);

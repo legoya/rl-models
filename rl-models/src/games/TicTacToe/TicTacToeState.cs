@@ -4,7 +4,7 @@ using src.models;
 namespace src.games.TicTacToe;
 
 
-public class TicTacToeState : State
+public class TicTacToeState : State<CoordinateMoveLocation>
 {
     public List<List<int>> Squares { get; }
     private int _size;
@@ -33,29 +33,23 @@ public class TicTacToeState : State
         _offDiagonalScore = other._offDiagonalScore;
     }
 
-    public override void Update(Move move)
+    public override void Update(int player, CoordinateMoveLocation moveLocation)
     {
-        validateMoveType(move);
+        validateMoveLocation(moveLocation.Row, moveLocation.Column);
 
-        var (Player, Row, Column) = ( (TicTacToeMove) move ).Decompose();  // TODO: this casting can likely be done better.
-        validateMoveLocation(Row, Column);
-
-        Squares[Row][Column] = Player;
+        Squares[moveLocation.Row][moveLocation.Column] = player;
         
-        _rowScores[Row] += Player;
-        _columnScores[Column] += Player;
+        _rowScores[moveLocation.Row] += player;
+        _columnScores[moveLocation.Column] += player;
 
-        if (Row == Column) { _diagonalScore += Player; }
-        if (Row + Column == _size - 1) { _offDiagonalScore += Player; }
+        if (moveLocation.Row == moveLocation.Column) { _diagonalScore += player; }
+        if (moveLocation.Row + moveLocation.Column == _size - 1) { _offDiagonalScore += player; }
     }
 
-    public override bool HasWinner(Move move)
+    public override bool HasWinner(int player, CoordinateMoveLocation moveLocation)
     {
-        validateMoveType(move);
 
-        var (Player, Row, Column) = ( (TicTacToeMove) move ).Decompose();
-
-        if (Math.Abs(_rowScores[Row]) == _size || Math.Abs(_columnScores[Column]) == _size) { return true; }
+        if (Math.Abs(_rowScores[moveLocation.Row]) == _size || Math.Abs(_columnScores[moveLocation.Column]) == _size) { return true; }
         if (Math.Abs(_diagonalScore) == _size || Math.Abs(_offDiagonalScore) == _size) { return true; }
 
         return false;
@@ -70,14 +64,6 @@ public class TicTacToeState : State
         }
 
         return output;
-    }
-
-    private void validateMoveType(Move move)
-    {
-        if (move is not TicTacToeMove)
-        {
-            throw new ArgumentException("TicTacToeMove must be supplied to TicTacToeState.Update(Move)");
-        }
     }
 
     private void validateMoveLocation(int Row, int Column)

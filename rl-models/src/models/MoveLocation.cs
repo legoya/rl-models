@@ -5,7 +5,7 @@ public abstract class MoveLocation {}
 
 public class VerticalMoveLocation : MoveLocation
 {
-    int Column {get; set;}
+    public int Column {get; set;}
 
     public VerticalMoveLocation(int column)
     {
@@ -15,12 +15,18 @@ public class VerticalMoveLocation : MoveLocation
 
 public class CoordinateMoveLocation : MoveLocation
 {
-    int Row {get; set;}
-    int Column {get; set;}
+    public int Row {get; set;}
+    public int Column {get; set;}
 
     public CoordinateMoveLocation(int row, int column)
     {
         Row = row;
         Column = column;
+    }
+
+    public CoordinateMoveLocation(CoordinateMoveLocation other)
+    {
+        Row = other.Row;
+        Column = other.Column;
     }
 }
