@@ -3,15 +3,15 @@ using src.models;
 
 namespace src.games.TicTacToe;
 
-public class TicTacToeGame : IGame<TicTacToeState, CoordinateMoveLocation>
+public class Game : IGame<State, CoordinateMove>
 {
-    public HashSet<CoordinateMoveLocation> AvailableLocations {get;}
-    public TicTacToeState State {get;}
+    public HashSet<CoordinateMove> AvailableLocations {get;}
+    public State State {get;}
 
-    public TicTacToeGame(int size)
+    public Game(int size)
     {
         AvailableLocations = initialiseAvailableLocations(size);
-        State = new TicTacToeState(size);
+        State = new State(size);
     }
 
     public override string ToString()
@@ -26,23 +26,23 @@ public class TicTacToeGame : IGame<TicTacToeState, CoordinateMoveLocation>
         return output;
     }
 
-    public TicTacToeState CalculateStateAfterMove(int player, CoordinateMoveLocation moveLocation)
+    public State CalculateStateAfterMove(int player, CoordinateMove moveLocation)
     {
-        var StateCopy = new TicTacToeState(State);
+        var StateCopy = new State(State);
         StateCopy.Update(player, moveLocation);
 
         return StateCopy;
     }
 
-    public void MakeMove(int player, CoordinateMoveLocation moveLocation)
+    public void MakeMove(int player, CoordinateMove moveLocation)
     {
-        var location = new CoordinateMoveLocation(moveLocation);
+        var location = new CoordinateMove(moveLocation);
         
         AvailableLocations.Remove(location);
         State.Update(player, moveLocation);
     }
 
-    public GameResult GameResult(int player, CoordinateMoveLocation moveLocation)
+    public GameResult GameResult(int player, CoordinateMove moveLocation)
     {
 
         if (State.HasWinner(player, moveLocation))
@@ -56,15 +56,15 @@ public class TicTacToeGame : IGame<TicTacToeState, CoordinateMoveLocation>
 
     }
 
-    private HashSet<CoordinateMoveLocation> initialiseAvailableLocations(int size)
+    private HashSet<CoordinateMove> initialiseAvailableLocations(int size)
     {
-        HashSet<CoordinateMoveLocation> output = new();
+        HashSet<CoordinateMove> output = new();
 
         foreach (int row in Enumerable.Range(0, size))
         {
             foreach (int column in Enumerable.Range(0, size))
             {
-                var location = new CoordinateMoveLocation(row, column);
+                var location = new CoordinateMove(row, column);
                 output.Add(location);
             }
         }

@@ -6,14 +6,14 @@ using src.models;
 namespace src;
 
 
-public abstract class Match<TState, TMoveLocation>
+public abstract class Match<TState, TMove>
 {
     private models.GameResult _gameResult;
-    private Agent<TState, TMoveLocation> _player1Agent;
-    private Agent<TState, TMoveLocation> _player2Agent;
-    private Agent<TState, TMoveLocation> _activeAgent;
+    private Agent<TState, TMove> _player1Agent;
+    private Agent<TState, TMove> _player2Agent;
+    private Agent<TState, TMove> _activeAgent;
 
-    public Match(Agent<TState, TMoveLocation> player1Agent, Agent<TState, TMoveLocation> player2Agent)
+    public Match(Agent<TState, TMove> player1Agent, Agent<TState, TMove> player2Agent)
     {
         _gameResult = GameResult.Incomplete;
         _player1Agent = player1Agent;
@@ -21,7 +21,7 @@ public abstract class Match<TState, TMoveLocation>
         _activeAgent = player1Agent;
     }
 
-    public void start(IGame<TState, TMoveLocation> game)
+    public void start(IGame<TState, TMove> game)
     {
         while (_gameResult == GameResult.Incomplete)
         {
@@ -38,7 +38,7 @@ public abstract class Match<TState, TMoveLocation>
 
     }
 
-    private Agent<TState, TMoveLocation> alternateMove(Agent<TState, TMoveLocation> activeAgent)
+    private Agent<TState, TMove> alternateMove(Agent<TState, TMove> activeAgent)
     {
         return activeAgent.Player switch
         {
