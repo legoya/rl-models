@@ -7,7 +7,7 @@ namespace src.games.TicTacToe;
 public class State : IState<CoordinateMove>
 {
     public List<List<int>> Squares { get; }
-    private int _size;
+    public int Size;
     private List<int> _rowScores;
     private List<int> _columnScores;
     private int _diagonalScore;
@@ -16,7 +16,7 @@ public class State : IState<CoordinateMove>
     public State(int size)
     {
         Squares = initialiseSquares(size);
-        _size = size;
+        Size = size;
         _rowScores = new List<int>(new int[size]);
         _columnScores = new List<int>(new int[size]);
         _diagonalScore = 0;
@@ -26,7 +26,7 @@ public class State : IState<CoordinateMove>
     public State(State other)
     {
         Squares = other.Squares;
-        _size = other._size;
+        Size = other.Size;
         _rowScores = other._rowScores;
         _columnScores = other._columnScores;
         _diagonalScore = other._diagonalScore;
@@ -43,18 +43,18 @@ public class State : IState<CoordinateMove>
         _columnScores[moveLocation.Column] += player;
 
         if (moveLocation.Row == moveLocation.Column) { _diagonalScore += player; }
-        if (moveLocation.Row + moveLocation.Column == _size - 1) { _offDiagonalScore += player; }
+        if (moveLocation.Row + moveLocation.Column == Size - 1) { _offDiagonalScore += player; }
     }
 
     public bool HasWinner(int player, CoordinateMove moveLocation)
     {
 
-        if (Math.Abs(_rowScores[moveLocation.Row]) == _size || Math.Abs(_columnScores[moveLocation.Column]) == _size)
+        if (Math.Abs(_rowScores[moveLocation.Row]) == Size || Math.Abs(_columnScores[moveLocation.Column]) == Size)
         {
             return true; 
         }
 
-        if (Math.Abs(_diagonalScore) == _size || Math.Abs(_offDiagonalScore) == _size)
+        if (Math.Abs(_diagonalScore) == Size || Math.Abs(_offDiagonalScore) == Size)
         {
             return true;
         }

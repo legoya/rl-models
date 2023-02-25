@@ -11,10 +11,10 @@ public abstract class Agent<TState, TMove>
         Player = player;
     }
 
-    public abstract TMove SelectMove(TState currentState, HashSet<TMove> possibleMoves);
+    public abstract TMove SelectMove(TState currentState, HashSet<TMove> availableMoves);
 
-    public static TMove SelectRandomMoveLocation(HashSet<TMove> possibleMoves)
+    public static TMove SelectRandomMoveLocation(HashSet<TMove> availableMoves)
     {
-        return possibleMoves.ElementAt(randomNumberGenerator.Next(possibleMoves.Count));
+        return availableMoves.ElementAt(randomNumberGenerator.Next(availableMoves.Count));
     }
 }
