@@ -4,9 +4,9 @@ using src.models;
 namespace src.games.TicTacToe;
 
 
-public class TicTacToeState : IState<CoordinateMoveLocation>
+public class TicTacToeState : State<CoordinateMoveLocation>
 {
-    public List<List<int>> Squares { get; }
+    public override List<List<int>> Squares { get; }
     private int _size;
     private List<int> _rowScores;
     private List<int> _columnScores;
@@ -33,7 +33,7 @@ public class TicTacToeState : IState<CoordinateMoveLocation>
         _offDiagonalScore = other._offDiagonalScore;
     }
 
-    public void Update(int player, CoordinateMoveLocation moveLocation)
+    public override void Update(int player, CoordinateMoveLocation moveLocation)
     {
         validateMoveLocation(moveLocation.Row, moveLocation.Column);
 
@@ -46,7 +46,7 @@ public class TicTacToeState : IState<CoordinateMoveLocation>
         if (moveLocation.Row + moveLocation.Column == _size - 1) { _offDiagonalScore += player; }
     }
 
-    public bool HasWinner(int player, CoordinateMoveLocation moveLocation)
+    public override bool HasWinner(int player, CoordinateMoveLocation moveLocation)
     {
 
         if (Math.Abs(_rowScores[moveLocation.Row]) == _size || Math.Abs(_columnScores[moveLocation.Column]) == _size) { return true; }

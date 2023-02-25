@@ -7,14 +7,14 @@ namespace src;
 
 public class Play<TState, TMoveLocation>
 {
-    private IGame<TState, TMoveLocation> _game;
+    private Game<TState, TMoveLocation> _game;
     private models.GameResult _gameResult;
     private Agent<TState, TMoveLocation> _player1Agent;
     private Agent<TState, TMoveLocation> _player2Agent;
     private Agent<TState, TMoveLocation> _activeAgent;
 
 
-    public Play(IGame<TState, TMoveLocation> game, Agent<TState, TMoveLocation> player1Agent, Agent<TState, TMoveLocation> player2Agent)
+    public Play(Game<TState, TMoveLocation> game, Agent<TState, TMoveLocation> player1Agent, Agent<TState, TMoveLocation> player2Agent)
     {
         _game = game;
         _gameResult = GameResult.Incomplete;

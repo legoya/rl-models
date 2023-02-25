@@ -3,10 +3,10 @@ using src.models;
 
 namespace src.games.TicTacToe;
 
-public class TicTacToeGame : IGame<TicTacToeState, CoordinateMoveLocation>
+public class TicTacToeGame : Game<TicTacToeState, CoordinateMoveLocation>
 {
-    public HashSet<CoordinateMoveLocation> AvailableLocations {get;}
-    public TicTacToeState State {get;}
+    public override HashSet<CoordinateMoveLocation> AvailableLocations {get;}
+    public override TicTacToeState State {get;}
 
     public TicTacToeGame(int size)
     {
@@ -26,7 +26,7 @@ public class TicTacToeGame : IGame<TicTacToeState, CoordinateMoveLocation>
         return output;
     }
 
-    public TicTacToeState CalculateStateAfterMove(int player, CoordinateMoveLocation moveLocation)
+    public override TicTacToeState CalculateStateAfterMove(int player, CoordinateMoveLocation moveLocation)
     {
         var StateCopy = new TicTacToeState(State);
         StateCopy.Update(player, moveLocation);
@@ -34,7 +34,7 @@ public class TicTacToeGame : IGame<TicTacToeState, CoordinateMoveLocation>
         return StateCopy;
     }
 
-    public void MakeMove(int player, CoordinateMoveLocation moveLocation)
+    public override void MakeMove(int player, CoordinateMoveLocation moveLocation)
     {
         var location = new CoordinateMoveLocation(moveLocation);
         
@@ -42,7 +42,7 @@ public class TicTacToeGame : IGame<TicTacToeState, CoordinateMoveLocation>
         State.Update(player, moveLocation);
     }
 
-    public GameResult GameResult(int player, CoordinateMoveLocation moveLocation)
+    public override GameResult GameResult(int player, CoordinateMoveLocation moveLocation)
     {
 
         if (State.HasWinner(player, moveLocation))
