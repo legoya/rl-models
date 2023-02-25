@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace src.models;
 
 
@@ -29,4 +31,23 @@ public class CoordinateMove : Move
         Row = other.Row;
         Column = other.Column;
     }
+
+
+    public override int GetHashCode()
+    {
+        return (Row+1) * 10 + Column;
+    }
+
+    public override bool Equals(object? other)
+    {
+        if (other is null) { return false; }
+        if (other is CoordinateMove)
+        {
+            var otherCoordinateMove = (CoordinateMove)other;
+            return Row == otherCoordinateMove.Row && Column == otherCoordinateMove.Column;
+        }
+
+        return false; 
+    }
+
 }

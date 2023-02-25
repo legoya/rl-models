@@ -65,7 +65,7 @@ public class State : IState<CoordinateMove>
     private List<List<int>> initialiseSquares(int size)
     {
         var output = new List<List<int>>();
-        foreach (int i in Enumerable.Range(0, size-1))
+        foreach (int i in Enumerable.Range(0, size))
         {
             output.Add(new List<int>(new int[size]));
         }

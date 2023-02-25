@@ -20,7 +20,7 @@ public class Game : IGame<State, CoordinateMove>
         var output = "";
         for (int row = 0; row < State.Squares.Count; row++) 
         {
-            var rowString = String.Join("", State.Squares[row]) + "\n";
+            var rowString = String.Join("\t", State.Squares[row]) + "\n";
             output += rowString;
         }
 

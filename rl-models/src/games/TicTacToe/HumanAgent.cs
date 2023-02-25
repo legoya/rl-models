@@ -11,10 +11,11 @@ public class HumanAgent : Agent<State, CoordinateMove>
 
     public override CoordinateMove SelectMove(State currentState, HashSet<CoordinateMove> possibleMoves)
     {
-        var row = Convert.ToInt32(Console.ReadLine());
-        var column = Convert.ToInt32(Console.ReadLine());
+        return SelectRandomMoveLocation(possibleMoves);
+        // var row = Convert.ToInt32(Console.ReadLine());
+        // var column = Convert.ToInt32(Console.ReadLine());
 
-        return new CoordinateMove(row, column);
+        // return new CoordinateMove(row, column);
     }
 
 }

@@ -25,6 +25,8 @@ public abstract class Match<TState, TMove>
 
         while (gameResult == GameResult.Incomplete)
         {
+            Console.WriteLine(game);
+
             var selectedMove = _activeAgent.SelectMove(game.State, game.AvailableMoves);
 
             game.MakeMove(_activeAgent.Player, selectedMove);
@@ -35,6 +37,8 @@ public abstract class Match<TState, TMove>
 
         Console.WriteLine("Game End");
         Console.WriteLine(gameResult);
+        Console.WriteLine(game);
+
 
     }
 
