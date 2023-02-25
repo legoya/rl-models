@@ -5,16 +5,16 @@ using src.models;
 namespace src;
 
 
-public class Play
+public class Play<TState, TMoveLocation>
 {
-    private Game<MoveLocation> _game;
+    private IGame<TState, TMoveLocation> _game;
     private models.GameResult _gameResult;
-    private Agent _player1Agent;
-    private Agent _player2Agent;
-    private Agent _activeAgent;
+    private Agent<TState, TMoveLocation> _player1Agent;
+    private Agent<TState, TMoveLocation> _player2Agent;
+    private Agent<TState, TMoveLocation> _activeAgent;
 
 
-    public Play(Game<MoveLocation> game, Agent player1Agent, Agent player2Agent)
+    public Play(IGame<TState, TMoveLocation> game, Agent<TState, TMoveLocation> player1Agent, Agent<TState, TMoveLocation> player2Agent)
     {
         _game = game;
         _gameResult = GameResult.Incomplete;
@@ -40,7 +40,7 @@ public class Play
 
     }
 
-    private Agent alternateMove(Agent activeAgent)
+    private Agent<TState, TMoveLocation> alternateMove(Agent<TState, TMoveLocation> activeAgent)
     {
         return activeAgent.Player switch
         {

@@ -3,14 +3,14 @@ using src.models;
 
 namespace src.games.TicTacToe;
 
-public class TicTacToeGame : Game<CoordinateMoveLocation>
+public class TicTacToeGame : IGame<TicTacToeState, CoordinateMoveLocation>
 {
-    public override HashSet<CoordinateMoveLocation> AvailableLocations {get;}
-    public override TicTacToeState State {get;}
+    public HashSet<CoordinateMoveLocation> AvailableLocations {get;}
+    public TicTacToeState State {get;}
 
     public TicTacToeGame(int size)
     {
-        AvailableLocations = TicTacToeGame.initialiseAvailableLocations(size);
+        AvailableLocations = initialiseAvailableLocations(size);
         State = new TicTacToeState(size);
     }
 
@@ -26,7 +26,7 @@ public class TicTacToeGame : Game<CoordinateMoveLocation>
         return output;
     }
 
-    public override State<CoordinateMoveLocation> CalculateStateAfterMove(int player, CoordinateMoveLocation moveLocation)
+    public TicTacToeState CalculateStateAfterMove(int player, CoordinateMoveLocation moveLocation)
     {
         var StateCopy = new TicTacToeState(State);
         StateCopy.Update(player, moveLocation);
@@ -34,7 +34,7 @@ public class TicTacToeGame : Game<CoordinateMoveLocation>
         return StateCopy;
     }
 
-    public override void MakeMove(int player, CoordinateMoveLocation moveLocation)
+    public void MakeMove(int player, CoordinateMoveLocation moveLocation)
     {
         var location = new CoordinateMoveLocation(moveLocation);
         
@@ -42,7 +42,7 @@ public class TicTacToeGame : Game<CoordinateMoveLocation>
         State.Update(player, moveLocation);
     }
 
-    public override GameResult GameResult(int player, CoordinateMoveLocation moveLocation)
+    public GameResult GameResult(int player, CoordinateMoveLocation moveLocation)
     {
 
         if (State.HasWinner(player, moveLocation))
@@ -56,7 +56,7 @@ public class TicTacToeGame : Game<CoordinateMoveLocation>
 
     }
 
-    private static HashSet<CoordinateMoveLocation> initialiseAvailableLocations(int size)
+    private HashSet<CoordinateMoveLocation> initialiseAvailableLocations(int size)
     {
         HashSet<CoordinateMoveLocation> output = new();
 

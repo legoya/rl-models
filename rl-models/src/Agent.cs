@@ -1,11 +1,7 @@
-using src.games;
-using src.games.TicTacToe;
-using src.models;
-
 namespace src;
 
 
-public abstract class Agent
+public abstract class Agent<TState, TMoveLocation>
 {
     public int Player;
     private static Random randomNumberGenerator = new Random();
@@ -15,9 +11,9 @@ public abstract class Agent
         Player = player;
     }
 
-    public abstract MoveLocation SelectMoveLocation(State<MoveLocation> currentState, HashSet<MoveLocation> possibleLocations);
+    public abstract TMoveLocation SelectMoveLocation(TState currentState, HashSet<TMoveLocation> possibleLocations);
 
-    public static MoveLocation SelectRandomMoveLocation(HashSet<MoveLocation> possibleLocations)
+    public static TMoveLocation SelectRandomMoveLocation(HashSet<TMoveLocation> possibleLocations)
     {
         return possibleLocations.ElementAt(randomNumberGenerator.Next(possibleLocations.Count));
     }
