@@ -25,7 +25,7 @@ public class Play<TState, TMoveLocation>
 
     public void start()
     {
-        while (_gameResult is GameResult.Incomplete)
+        while (_gameResult == GameResult.Incomplete)
         {
             var selectedMove = _activeAgent.SelectMoveLocation(_game.State, _game.AvailableLocations);
             _game.MakeMove(_activeAgent.Player, selectedMove);

@@ -60,9 +60,9 @@ public class TicTacToeGame : Game<TicTacToeState, CoordinateMoveLocation>
     {
         HashSet<CoordinateMoveLocation> output = new();
 
-        foreach (int row in Enumerable.Range(0, size - 1))
+        foreach (int row in Enumerable.Range(0, size))
         {
-            foreach (int column in Enumerable.Range(0, size - 1))
+            foreach (int column in Enumerable.Range(0, size))
             {
                 var location = new CoordinateMoveLocation(row, column);
                 output.Add(location);
