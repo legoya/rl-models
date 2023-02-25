@@ -1,4 +1,4 @@
-namespace src;
+namespace src.agents;
 
 
 public abstract class Agent<TState, TMoveLocation>

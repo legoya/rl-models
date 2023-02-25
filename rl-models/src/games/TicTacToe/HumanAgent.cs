@@ -1,3 +1,4 @@
+using src.agents;
 using src.models;
 
 
@@ -10,12 +11,10 @@ public class HumanAgent : Agent<TicTacToeState, CoordinateMoveLocation>
 
     public override CoordinateMoveLocation SelectMoveLocation(TicTacToeState currentState, HashSet<CoordinateMoveLocation> possibleMoves)
     {
+        var row = Convert.ToInt32(Console.ReadLine());
+        var column = Convert.ToInt32(Console.ReadLine());
 
-        return Agent<TicTacToeState, CoordinateMoveLocation>.SelectRandomMoveLocation(possibleMoves);
-        // var row = Convert.ToInt32(Console.ReadLine());
-        // var column = Convert.ToInt32(Console.ReadLine());
-
-        // return new CoordinateMoveLocation(row, column);
+        return new CoordinateMoveLocation(row, column);
     }
 
 }
