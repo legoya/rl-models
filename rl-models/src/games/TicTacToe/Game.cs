@@ -3,14 +3,15 @@ using src.models;
 
 namespace src.games.TicTacToe;
 
+
 public class Game : IGame<State, CoordinateMove>
 {
-    public HashSet<CoordinateMove> AvailableLocations {get;}
+    public HashSet<CoordinateMove> AvailableMoves {get;}
     public State State {get;}
 
     public Game(int size)
     {
-        AvailableLocations = initialiseAvailableLocations(size);
+        AvailableMoves = initialiseAvailableMoves(size);
         State = new State(size);
     }
 
@@ -38,7 +39,7 @@ public class Game : IGame<State, CoordinateMove>
     {
         var location = new CoordinateMove(moveLocation);
         
-        AvailableLocations.Remove(location);
+        AvailableMoves.Remove(location);
         State.Update(player, moveLocation);
     }
 
@@ -50,13 +51,13 @@ public class Game : IGame<State, CoordinateMove>
             return player == 1 ? models.GameResult.Player1Win : models.GameResult.Player2Win;
         }
 
-        if (AvailableLocations.Count == 0) { return models.GameResult.Draw; }
+        if (AvailableMoves.Count == 0) { return models.GameResult.Draw; }
 
         return models.GameResult.Incomplete;
 
     }
 
-    private HashSet<CoordinateMove> initialiseAvailableLocations(int size)
+    private HashSet<CoordinateMove> initialiseAvailableMoves(int size)
     {
         HashSet<CoordinateMove> output = new();
 

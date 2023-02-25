@@ -25,7 +25,7 @@ public abstract class Match<TState, TMove>
     {
         while (_gameResult == GameResult.Incomplete)
         {
-            var selectedMove = _activeAgent.SelectMoveLocation(game.State, game.AvailableLocations);
+            var selectedMove = _activeAgent.SelectMove(game.State, game.AvailableMoves);
             game.MakeMove(_activeAgent.Player, selectedMove);
 
             _gameResult = game.GameResult(_activeAgent.Player, selectedMove);

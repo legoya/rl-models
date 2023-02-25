@@ -1,7 +1,7 @@
 namespace src.agents;
 
 
-public abstract class Agent<TState, TMoveLocation>
+public abstract class Agent<TState, TMove>
 {
     public int Player;
     private static Random randomNumberGenerator = new Random();
@@ -11,10 +11,10 @@ public abstract class Agent<TState, TMoveLocation>
         Player = player;
     }
 
-    public abstract TMoveLocation SelectMoveLocation(TState currentState, HashSet<TMoveLocation> possibleLocations);
+    public abstract TMove SelectMove(TState currentState, HashSet<TMove> possibleMoves);
 
-    public static TMoveLocation SelectRandomMoveLocation(HashSet<TMoveLocation> possibleLocations)
+    public static TMove SelectRandomMoveLocation(HashSet<TMove> possibleMoves)
     {
-        return possibleLocations.ElementAt(randomNumberGenerator.Next(possibleLocations.Count));
+        return possibleMoves.ElementAt(randomNumberGenerator.Next(possibleMoves.Count));
     }
 }

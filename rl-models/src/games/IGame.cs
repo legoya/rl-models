@@ -6,7 +6,7 @@ namespace src.games;
 
 public interface IGame<TState, TMove>
 {
-    public HashSet<TMove> AvailableLocations {get;}
+    public HashSet<TMove> AvailableMoves {get;}
     public TState State {get;}
     public TState CalculateStateAfterMove(int player, TMove moveLocation);
     public void MakeMove(int player, TMove moveLocation);

@@ -9,7 +9,7 @@ public class HumanAgent : Agent<State, CoordinateMove>
 {
     public HumanAgent(int player) : base(player) {}
 
-    public override CoordinateMove SelectMoveLocation(State currentState, HashSet<CoordinateMove> possibleMoves)
+    public override CoordinateMove SelectMove(State currentState, HashSet<CoordinateMove> possibleMoves)
     {
         var row = Convert.ToInt32(Console.ReadLine());
         var column = Convert.ToInt32(Console.ReadLine());
