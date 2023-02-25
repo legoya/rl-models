@@ -8,42 +8,42 @@ namespace src;
 
 public abstract class Match<TState, TMove>
 {
-    private models.GameResult _gameResult;
-    private Agent<TState, TMove> _player1Agent;
-    private Agent<TState, TMove> _player2Agent;
+    private Agent<TState, TMove> _agent1;
+    private Agent<TState, TMove> _agent2;
     private Agent<TState, TMove> _activeAgent;
 
-    public Match(Agent<TState, TMove> player1Agent, Agent<TState, TMove> player2Agent)
+    public Match(Agent<TState, TMove> agent1, Agent<TState, TMove> agent2)
     {
-        _gameResult = GameResult.Incomplete;
-        _player1Agent = player1Agent;
-        _player2Agent = player2Agent;
-        _activeAgent = player1Agent;
+        _agent1 = agent1;
+        _agent2 = agent2;
+        _activeAgent = agent1;
     }
 
     public void start(IGame<TState, TMove> game)
     {
-        while (_gameResult == GameResult.Incomplete)
+        var gameResult = GameResult.Incomplete;
+
+        while (gameResult == GameResult.Incomplete)
         {
             var selectedMove = _activeAgent.SelectMove(game.State, game.AvailableMoves);
-            game.MakeMove(_activeAgent.Player, selectedMove);
 
-            _gameResult = game.GameResult(_activeAgent.Player, selectedMove);
-            
-            _activeAgent = alternateMove(_activeAgent);
+            game.MakeMove(_activeAgent.Player, selectedMove);
+            gameResult = game.GameResult(_activeAgent.Player, selectedMove);
+
+            _activeAgent = alternateActive(_activeAgent);
         }
 
         Console.WriteLine("Game End");
-        Console.WriteLine(_gameResult);
+        Console.WriteLine(gameResult);
 
     }
 
-    private Agent<TState, TMove> alternateMove(Agent<TState, TMove> activeAgent)
+    private Agent<TState, TMove> alternateActive(Agent<TState, TMove> activeAgent)
     {
-        return activeAgent.Player switch
+        return _activeAgent.Player switch
         {
-            1 => _player2Agent,
-            _ =>  _player1Agent
+            1 => _agent2,
+            _ =>  _agent1
         };
     }
     
