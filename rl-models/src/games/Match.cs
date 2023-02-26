@@ -3,23 +3,23 @@ using src.agents;
 using src.models;
 
 
-namespace src;
+namespace src.games;
 
 
-public abstract class Match<TState>
+public class Match
 {
-    private Agent<TState> _agent1;
-    private Agent<TState> _agent2;
-    private Agent<TState> _activeAgent;
+    private Agent _agent1;
+    private Agent _agent2;
+    private Agent _activeAgent;
 
-    public Match(Agent<TState> agent1, Agent<TState> agent2)
+    public Match(Agent agent1, Agent agent2)
     {
         _agent1 = agent1;
         _agent2 = agent2;
         _activeAgent = agent1;
     }
 
-    public void start(IGame<TState> game)
+    public void start(IGame game)
     {
         var gameResult = GameResult.Incomplete;
 
@@ -40,7 +40,7 @@ public abstract class Match<TState>
         Console.WriteLine(game);
     }
 
-    private Agent<TState> alternateActive(Agent<TState> activeAgent)
+    private Agent alternateActive(Agent activeAgent)
     {
         return _activeAgent.Player switch
         {

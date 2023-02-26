@@ -4,10 +4,10 @@ using src.models;
 namespace src.games.TicTacToe;
 
 
-public class Game : IGame<State>
+public class Game : IGame
 {
     public HashSet<Move> AvailableMoves {get;}
-    public State State {get;}
+    public IState State {get;}
 
     public Game(int size)
     {
@@ -27,9 +27,9 @@ public class Game : IGame<State>
         return output;
     }
 
-    public State CalculateStateAfterMove(int player, Move moveLocation)
+    public IState CalculateStateAfterMove(int player, Move moveLocation)
     {
-        var StateCopy = new State(State);
+        var StateCopy = new State((State)State);
         StateCopy.Update(player, (CoordinateMove)moveLocation);
 
         return StateCopy;

@@ -1,10 +1,11 @@
+using src.games;
 using src.models;
 
 
 namespace src.agents;
 
 
-public abstract class Agent<TState>
+public abstract class Agent
 {
     public int Player;
     private static Random randomNumberGenerator = new Random();
@@ -14,7 +15,7 @@ public abstract class Agent<TState>
         Player = player;
     }
 
-    public abstract Move SelectMove(TState currentState, HashSet<Move> availableMoves);
+    public abstract Move SelectMove(IState currentState, HashSet<Move> availableMoves);
 
     public static Move SelectRandomMoveLocation(HashSet<Move> availableMoves)
     {

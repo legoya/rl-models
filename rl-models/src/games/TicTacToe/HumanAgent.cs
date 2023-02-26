@@ -5,16 +5,18 @@ using src.models;
 namespace src.games.TicTacToe;
 
 
-public class HumanAgent : Agent<State>
+public class HumanAgent : Agent
 {
     public HumanAgent(int player) : base(player) {}
 
-    public override Move SelectMove(State currentState, HashSet<Move> availableMoves)
+    public override Move SelectMove(IState currentState, HashSet<Move> availableMoves)
     {
-        Console.WriteLine($"Enter the row number for your move (1-{currentState.Size})");
+        var ticTacToeGameSize = ((State)currentState).Size;
+
+        Console.WriteLine($"Enter the row number for your move (1-{ticTacToeGameSize})");
         var row = Convert.ToInt32(Console.ReadLine());  
         
-        Console.WriteLine($"Enter the column number for your move (1-{currentState.Size})");
+        Console.WriteLine($"Enter the column number for your move (1-{ticTacToeGameSize})");
         var column = Convert.ToInt32(Console.ReadLine());
 
         Console.WriteLine();
