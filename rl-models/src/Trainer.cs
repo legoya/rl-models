@@ -13,26 +13,26 @@ public static class Trainer
         {
             throw new ArgumentException("At least one of the suppied agents must be a LearningAgent");
         }
-        
 
-        for (int i = 0; i < numberOfGames; i++)
+        double a1Wins = 0.0;
+
+        for (int i = 1; i < numberOfGames+1; i++)
         {
             var completedGame = Match.Play(game, agent1, agent2);
 
-            Console.WriteLine(game.GameResult);
-            learnFromGame(completedGame, agent1);
+            if (completedGame.GameResult is models.GameResult.Player1Win) { a1Wins++; }
 
-            // will process the game instance here to learn from what happened
+            if (i % 20 == 0) { Console.WriteLine($"Agent 1 win rate: {Math.Round(a1Wins/i, 4)}"); }
+            
+            learnFromGame(completedGame, agent1, agent2);
         }
     }
 
-    private static void learnFromGame(IGame game, Agent agent)
+    private static void learnFromGame(IGame game, Agent agent1, Agent agent2)
     {
-        foreach (int stateHash in game.StateHashHistory)
+        if (agent1 is LearningAgent)
         {
-            Console.WriteLine(stateHash);
+            ((LearningAgent)agent1).Learn(game.StateHashHistory, game.GameResult);
         }
-
-        return;
     }
 }
