@@ -10,7 +10,7 @@ public interface IGame
     public IState State {get;}
     public List<int> StateHashHistory {get;}
     public GameResult GameResult {get;}
-    public void Reset();
+    public IGame Copy();
     public IState CalculateStateAfterMove(int player, Move moveLocation);
     public void MakeMove(int player, Move moveLocation);
 }

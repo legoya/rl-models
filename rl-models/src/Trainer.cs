@@ -1,16 +1,32 @@
-// using src.games;
-// using src.agents;
-// using src.models;
+using src.games;
+using src.agents;
 
 
-// namespace src;
+namespace src;
 
 
-// public static class Trainer
-// {
+public static class Trainer
+{
+    public static void Train(IGame game, Agent agent1, Agent agent2, int numberOfGames)
+    {
+        for (int i = 0; i < numberOfGames; i++)
+        {
+            var completedGame = Match.Play(game, agent1, agent2);
 
-//     public static void Train(IGame<IState<Move>, Move> g, Agent<IState<Move>, Move> a1, Agent<IState<Move>, Move> a2)
-//     {
-//         return;
-//     }
-// }
+            Console.WriteLine(game.GameResult);
+            learnFromGame(completedGame, agent1);
+
+            // will process the game instance here to learn from what happened
+        }
+    }
+
+    private static void learnFromGame(IGame game, Agent agent)
+    {
+        foreach (int stateHash in game.StateHashHistory)
+        {
+            Console.WriteLine(stateHash);
+        }
+
+        return;
+    }
+}

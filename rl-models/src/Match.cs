@@ -8,23 +8,26 @@ namespace src;
 
 public static class Match
 {
-    public static void start(IGame game, Agent agent1, Agent agent2)
+    public static IGame Play(IGame game, Agent agent1, Agent agent2)
     {
+        var gameInstance = game.Copy();
         var activeAgent = agent1;
 
-        while (game.GameResult == GameResult.Incomplete)
+        while (gameInstance.GameResult == GameResult.Incomplete)
         {
-            Console.WriteLine(game);
+            Console.WriteLine(gameInstance);
 
-            var selectedMove = activeAgent.SelectMove(game.State, game.AvailableMoves);
-            game.MakeMove(activeAgent.Player, selectedMove);
+            var selectedMove = activeAgent.SelectMove(gameInstance.State, gameInstance.AvailableMoves);
+            gameInstance.MakeMove(activeAgent.Player, selectedMove);
 
             activeAgent = alternateActive(activeAgent, agent1, agent2);
         }
 
         Console.WriteLine("Game End");
-        Console.WriteLine(game.GameResult);
-        Console.WriteLine(game);
+        Console.WriteLine(gameInstance.GameResult);
+        Console.WriteLine(gameInstance);
+
+        return gameInstance;
     }
 
     private static Agent alternateActive(Agent activeAgent, Agent agent1, Agent agent2)

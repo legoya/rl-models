@@ -33,10 +33,9 @@ public class TicTacToe : IGame
         return output;
     }
 
-    public void Reset()
+    public IGame Copy()
     {
-        AvailableMoves = initialiseAvailableMoves(_size);
-        State = new TicTacToeState(_size);
+        return new TicTacToe(_size);
     }
 
     public IState CalculateStateAfterMove(int player, Move moveLocation)

@@ -11,4 +11,6 @@ var a2 = new RandomAgent(-1);
 
 var g = new TicTacToe(3);
 
-Match.start(g, a1, a2);
+// var completedGame = Match.Play(new TicTacToe(3), a1, a2);
+
+Trainer.Train(g, a1, a2, 2);

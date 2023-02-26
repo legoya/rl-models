@@ -66,7 +66,13 @@ public class TicTacToeState : IState
 
     public override int GetHashCode()
     {
-        return String.Join("", Squares).GetHashCode();
+        var squaresString = "";
+        foreach (List<int> row in Squares)
+        {
+            squaresString += String.Join("", row);
+        }
+
+        return squaresString.GetHashCode();
     }
 
     private List<List<int>> initialiseSquares(int size)
