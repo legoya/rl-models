@@ -4,15 +4,17 @@ using src.models;
 namespace src.games.TicTacToe;
 
 
-public class Game : IGame
+public class TicTacToe : IGame
 {
-    public HashSet<Move> AvailableMoves {get;}
-    public IState State {get;}
+    public HashSet<Move> AvailableMoves {get; private set;}
+    public IState State {get; private set;}
+    private int _size {get;}
 
-    public Game(int size)
+    public TicTacToe(int size)
     {
         AvailableMoves = initialiseAvailableMoves(size);
-        State = new State(size);
+        State = new TicTacToeState(size);
+        _size = size;
     }
 
     public override string ToString()
@@ -27,9 +29,15 @@ public class Game : IGame
         return output;
     }
 
+    public void Reset()
+    {
+        AvailableMoves = initialiseAvailableMoves(_size);
+        State = new TicTacToeState(_size);
+    }
+
     public IState CalculateStateAfterMove(int player, Move moveLocation)
     {
-        var StateCopy = new State((State)State);
+        var StateCopy = new TicTacToeState((TicTacToeState)State);
         StateCopy.Update(player, (CoordinateMove)moveLocation);
 
         return StateCopy;

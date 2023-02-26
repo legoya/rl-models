@@ -11,7 +11,7 @@ public class HumanAgent : Agent
 
     public override Move SelectMove(IState currentState, HashSet<Move> availableMoves)
     {
-        var ticTacToeGameSize = ((State)currentState).Size;
+        var ticTacToeGameSize = ((TicTacToeState)currentState).Size;
 
         Console.WriteLine($"Enter the row number for your move (1-{ticTacToeGameSize})");
         var row = Convert.ToInt32(Console.ReadLine());  

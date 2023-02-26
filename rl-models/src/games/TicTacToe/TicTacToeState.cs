@@ -4,16 +4,16 @@ using src.models;
 namespace src.games.TicTacToe;
 
 
-public class State : IState
+public class TicTacToeState : IState
 {
-    public List<List<int>> Squares { get; }
+    public List<List<int>> Squares { get; private set;}
     public int Size;
     private List<int> _rowScores;
     private List<int> _columnScores;
     private int _diagonalScore;
     private int _offDiagonalScore;
 
-    public State(int size)
+    public TicTacToeState(int size)
     {
         Squares = initialiseSquares(size);
         Size = size;
@@ -23,7 +23,7 @@ public class State : IState
         _offDiagonalScore = 0;
     }
     
-    public State(State other)
+    public TicTacToeState(TicTacToeState other)
     {
         Squares = other.Squares;
         Size = other.Size;
@@ -82,5 +82,4 @@ public class State : IState
             throw new ArgumentException("The supplied move is invalid as it attempts to use an already occupied location");
         }
     }
-
 }
