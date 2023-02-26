@@ -5,8 +5,8 @@ using src.agents;
 namespace src.games.TicTacToe;
 
 
-public class Match : Match<State, CoordinateMove>
+public class Match : Match<State>
 {
-    public Match(Agent<State, CoordinateMove> agent1, Agent<State, CoordinateMove> agent2) : base(agent1, agent2) {}
+    public Match(Agent<State> agent1, Agent<State> agent2) : base(agent1, agent2) {}
 
 }

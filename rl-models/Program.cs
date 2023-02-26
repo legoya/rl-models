@@ -1,10 +1,14 @@
-﻿using src.games.TicTacToe;
+﻿using src.agents;
+using src.games.TicTacToe;
 
 
-var h1 = new HumanAgent(1);
-var h2 = new HumanAgent(-1);
+// var a1 = new HumanAgent(1);
+// var a2 = new HumanAgent(-1);
 
-var m = new Match(h1, h2);
+var a1 = new RandomAgent<State>(1);
+var a2 = new RandomAgent<State>(-1);
+
+var m = new Match(a1, a2);
 var g = new Game(3);
 
 m.start(new Game(3));

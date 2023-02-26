@@ -6,20 +6,20 @@ using src.models;
 namespace src;
 
 
-public abstract class Match<TState, TMove>
+public abstract class Match<TState>
 {
-    private Agent<TState, TMove> _agent1;
-    private Agent<TState, TMove> _agent2;
-    private Agent<TState, TMove> _activeAgent;
+    private Agent<TState> _agent1;
+    private Agent<TState> _agent2;
+    private Agent<TState> _activeAgent;
 
-    public Match(Agent<TState, TMove> agent1, Agent<TState, TMove> agent2)
+    public Match(Agent<TState> agent1, Agent<TState> agent2)
     {
         _agent1 = agent1;
         _agent2 = agent2;
         _activeAgent = agent1;
     }
 
-    public void start(IGame<TState, TMove> game)
+    public void start(IGame<TState> game)
     {
         var gameResult = GameResult.Incomplete;
 
@@ -38,11 +38,9 @@ public abstract class Match<TState, TMove>
         Console.WriteLine("Game End");
         Console.WriteLine(gameResult);
         Console.WriteLine(game);
-
-
     }
 
-    private Agent<TState, TMove> alternateActive(Agent<TState, TMove> activeAgent)
+    private Agent<TState> alternateActive(Agent<TState> activeAgent)
     {
         return _activeAgent.Player switch
         {

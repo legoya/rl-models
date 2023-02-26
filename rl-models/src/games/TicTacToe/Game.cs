@@ -4,9 +4,9 @@ using src.models;
 namespace src.games.TicTacToe;
 
 
-public class Game : IGame<State, CoordinateMove>
+public class Game : IGame<State>
 {
-    public HashSet<CoordinateMove> AvailableMoves {get;}
+    public HashSet<Move> AvailableMoves {get;}
     public State State {get;}
 
     public Game(int size)
@@ -27,26 +27,26 @@ public class Game : IGame<State, CoordinateMove>
         return output;
     }
 
-    public State CalculateStateAfterMove(int player, CoordinateMove moveLocation)
+    public State CalculateStateAfterMove(int player, Move moveLocation)
     {
         var StateCopy = new State(State);
-        StateCopy.Update(player, moveLocation);
+        StateCopy.Update(player, (CoordinateMove)moveLocation);
 
         return StateCopy;
     }
 
-    public void MakeMove(int player, CoordinateMove moveLocation)
+    public void MakeMove(int player, Move moveLocation)
     {
-        var location = new CoordinateMove(moveLocation);
+        var location = new CoordinateMove((CoordinateMove)moveLocation);
         
         AvailableMoves.Remove(location);
-        State.Update(player, moveLocation);
+        State.Update(player, (CoordinateMove)moveLocation);
     }
 
-    public GameResult GameResult(int player, CoordinateMove moveLocation)
+    public GameResult GameResult(int player, Move moveLocation)
     {
 
-        if (State.HasWinner(player, moveLocation))
+        if (State.HasWinner(player, (CoordinateMove)moveLocation))
         {
             return player == 1 ? models.GameResult.Player1Win : models.GameResult.Player2Win;
         }
@@ -57,9 +57,9 @@ public class Game : IGame<State, CoordinateMove>
 
     }
 
-    private HashSet<CoordinateMove> initialiseAvailableMoves(int size)
+    private HashSet<Move> initialiseAvailableMoves(int size)
     {
-        HashSet<CoordinateMove> output = new();
+        HashSet<Move> output = new();
 
         foreach (int row in Enumerable.Range(0, size))
         {
