@@ -22,7 +22,7 @@ public static class Trainer
 
             if (completedGame.GameResult is models.GameResult.Player1Win) { a1Wins++; }
 
-            if (i % 20 == 0) { Console.WriteLine($"Agent 1 win rate: {Math.Round(a1Wins/i, 4)}"); }
+            if (i % 100 == 0) { Console.WriteLine($"Agent 1 win rate: {Math.Round(a1Wins/i, 4)}"); }
             
             learnFromGame(completedGame, agent1, agent2);
         }

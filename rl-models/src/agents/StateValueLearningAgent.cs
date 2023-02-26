@@ -32,8 +32,8 @@ public class StateValueLearningAgent : LearningAgent
 
         foreach (Move availableMove in currentGame.AvailableMoves)
         {
-            var nextState = currentGame.CalculateStateAfterMove(Player, availableMove);
-            var nextStateValue = _stateValueMap.ContainsKey(nextState.GetHashCode()) ? _stateValueMap[nextState.GetHashCode()] : 0.0;
+            var nextState = currentGame.CalculateStateAfterMove(Player, availableMove).GetHashCode();
+            var nextStateValue = _stateValueMap.ContainsKey(nextState) ? _stateValueMap[nextState] * Player : 0.0;
             
             if (nextStateValue > selectedMoveValue)
             {
