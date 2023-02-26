@@ -9,8 +9,8 @@ public class RandomAgent : Agent
 {
     public RandomAgent(int player) : base(player) {}
 
-    public override Move SelectMove(IState currentState, HashSet<Move> availableMoves)
+    public override Move SelectMove(IGame currentGame)
     {
-        return SelectRandomMoveLocation(availableMoves);
+        return SelectRandomMoveLocation(currentGame.AvailableMoves);
     }
 }

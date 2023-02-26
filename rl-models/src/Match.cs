@@ -15,12 +15,12 @@ public static class Match
 
         while (gameInstance.GameResult == GameResult.Incomplete)
         {
-            var selectedMove = activeAgent.SelectMove(gameInstance.State, gameInstance.AvailableMoves);
+            var selectedMove = activeAgent.SelectMove(game);
             gameInstance.MakeMove(activeAgent.Player, selectedMove);
 
             activeAgent = alternateActive(activeAgent, agent1, agent2);
         }
-        
+
         return gameInstance;
     }
 

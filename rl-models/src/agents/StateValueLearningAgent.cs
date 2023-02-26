@@ -20,9 +20,32 @@ public class StateValueLearningAgent : LearningAgent
         _stateValueMap = new Dictionary<int, double>();
     }
 
-    public override Move SelectMove(IState currentState, HashSet<Move> availableMoves)
+    public override Move SelectMove(IGame currentGame)
     {
-        return SelectRandomMoveLocation(availableMoves);
+        if (randomNumberGenerator.NextDouble() < _explorationRate)
+        {
+            return SelectRandomMoveLocation(currentGame.AvailableMoves);
+        }
+
+        Move? selectedMove = null;
+        double selectedMoveValue = double.MinValue;
+
+        foreach (Move availableMove in currentGame.AvailableMoves)
+        {
+            var nextState = currentGame.CalculateStateAfterMove(Player, availableMove);
+            var nextStateValue = _stateValueMap.ContainsKey(nextState.GetHashCode()) ? _stateValueMap[nextState.GetHashCode()] : 0.0;
+            
+            if (nextStateValue > selectedMoveValue)
+            {
+                selectedMove = availableMove;
+                selectedMoveValue = nextStateValue;
+            }
+
+        }
+
+        if (selectedMove is null) { throw new ArithmeticException("Move was not successfully selected"); }
+
+        return selectedMove;
     }
 
     public override void Learn(List<int> stateHistory, GameResult result)

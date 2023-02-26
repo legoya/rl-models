@@ -25,10 +25,10 @@ public class TicTacToeState : IState
     
     public TicTacToeState(TicTacToeState other)
     {
-        Squares = other.Squares;
+        Squares = copySquares(other.Squares);
         Size = other.Size;
-        _rowScores = other._rowScores;
-        _columnScores = other._columnScores;
+        _rowScores = new List<int>(other._rowScores);
+        _columnScores = new List<int>(other._columnScores);
         _diagonalScore = other._diagonalScore;
         _offDiagonalScore = other._offDiagonalScore;
     }
@@ -75,12 +75,23 @@ public class TicTacToeState : IState
         return squaresString.GetHashCode();
     }
 
-    private List<List<int>> initialiseSquares(int size)
+    private static List<List<int>> initialiseSquares(int size)
     {
         var output = new List<List<int>>();
         foreach (int i in Enumerable.Range(0, size))
         {
             output.Add(new List<int>(new int[size]));
+        }
+
+        return output;
+    }
+
+    private static List<List<int>> copySquares(List<List<int>> otherSquares)
+    {
+        var output = new List<List<int>>();
+        foreach (List<int> row in otherSquares)
+        {
+            output.Add(new List<int>(row));
         }
 
         return output;

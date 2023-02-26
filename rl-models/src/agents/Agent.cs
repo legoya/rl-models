@@ -8,14 +8,14 @@ namespace src.agents;
 public abstract class Agent
 {
     public int Player;
-    private static Random randomNumberGenerator = new Random();
+    public static Random randomNumberGenerator = new Random();
 
     public Agent(int player)
     {
         Player = player;
     }
 
-    public abstract Move SelectMove(IState currentState, HashSet<Move> availableMoves);
+    public abstract Move SelectMove(IGame currentGame);
 
     public static Move SelectRandomMoveLocation(HashSet<Move> availableMoves)
     {
