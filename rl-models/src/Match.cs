@@ -1,8 +1,9 @@
+using src.games;
 using src.agents;
 using src.models;
 
 
-namespace src.games;
+namespace src;
 
 
 public static class Match

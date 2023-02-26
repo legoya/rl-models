@@ -1,5 +1,5 @@
-﻿using src.agents;
-using src.games;
+﻿using src;
+using src.agents;
 using src.games.TicTacToe;
 
 
