@@ -5,47 +5,33 @@ using src.models;
 namespace src.games;
 
 
-public class Match
+public static class Match
 {
-    private Agent _agent1;
-    private Agent _agent2;
-    private Agent _activeAgent;
-
-    public Match(Agent agent1, Agent agent2)
+    public static void start(IGame game, Agent agent1, Agent agent2)
     {
-        _agent1 = agent1;
-        _agent2 = agent2;
-        _activeAgent = agent1;
-    }
+        var activeAgent = agent1;
 
-    public void start(IGame game)
-    {
-        var gameResult = GameResult.Incomplete;
-
-        while (gameResult == GameResult.Incomplete)
+        while (game.GameResult == GameResult.Incomplete)
         {
             Console.WriteLine(game);
 
-            var selectedMove = _activeAgent.SelectMove(game.State, game.AvailableMoves);
+            var selectedMove = activeAgent.SelectMove(game.State, game.AvailableMoves);
+            game.MakeMove(activeAgent.Player, selectedMove);
 
-            game.MakeMove(_activeAgent.Player, selectedMove);
-            gameResult = game.GameResult(_activeAgent.Player, selectedMove);
-
-            _activeAgent = alternateActive(_activeAgent);
+            activeAgent = alternateActive(activeAgent, agent1, agent2);
         }
 
         Console.WriteLine("Game End");
-        Console.WriteLine(gameResult);
+        Console.WriteLine(game.GameResult);
         Console.WriteLine(game);
     }
 
-    private Agent alternateActive(Agent activeAgent)
+    private static Agent alternateActive(Agent activeAgent, Agent agent1, Agent agent2)
     {
-        return _activeAgent.Player switch
+        return activeAgent.Player switch
         {
-            1 => _agent2,
-            _ =>  _agent1
+            1 => agent2,
+            _ =>  agent1
         };
     }
-    
 } 

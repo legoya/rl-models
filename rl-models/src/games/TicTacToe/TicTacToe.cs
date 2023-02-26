@@ -8,12 +8,14 @@ public class TicTacToe : IGame
 {
     public HashSet<Move> AvailableMoves {get; private set;}
     public IState State {get; private set;}
+    public GameResult GameResult {get; private set;}
     private int _size {get;}
 
     public TicTacToe(int size)
     {
         AvailableMoves = initialiseAvailableMoves(size);
         State = new TicTacToeState(size);
+        GameResult = GameResult.Incomplete;
         _size = size;
     }
 
@@ -49,9 +51,10 @@ public class TicTacToe : IGame
         
         AvailableMoves.Remove(location);
         State.Update(player, (CoordinateMove)moveLocation);
+        GameResult = determinGameResult(player, moveLocation);
     }
 
-    public GameResult GameResult(int player, Move moveLocation)
+    private GameResult determinGameResult(int player, Move moveLocation)
     {
 
         if (State.HasWinner(player, (CoordinateMove)moveLocation))
