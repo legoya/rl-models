@@ -4,7 +4,7 @@ using src.models;
 namespace src.games.TicTacToe;
 
 
-public class State : IState<CoordinateMove>
+public class State : IState
 {
     public List<List<int>> Squares { get; }
     public int Size;
@@ -33,23 +33,25 @@ public class State : IState<CoordinateMove>
         _offDiagonalScore = other._offDiagonalScore;
     }
 
-    public void Update(int player, CoordinateMove moveLocation)
+    public void Update(int player, Move moveLocation)
     {
-        validateMoveLocation(moveLocation.Row, moveLocation.Column);
+        var coordinateMove = (CoordinateMove)moveLocation;
+        validateMoveLocation(coordinateMove.Row, coordinateMove.Column);
 
-        Squares[moveLocation.Row][moveLocation.Column] = player;
+        Squares[coordinateMove.Row][coordinateMove.Column] = player;
         
-        _rowScores[moveLocation.Row] += player;
-        _columnScores[moveLocation.Column] += player;
+        _rowScores[coordinateMove.Row] += player;
+        _columnScores[coordinateMove.Column] += player;
 
-        if (moveLocation.Row == moveLocation.Column) { _diagonalScore += player; }
-        if (moveLocation.Row + moveLocation.Column == Size - 1) { _offDiagonalScore += player; }
+        if (coordinateMove.Row == coordinateMove.Column) { _diagonalScore += player; }
+        if (coordinateMove.Row + coordinateMove.Column == Size - 1) { _offDiagonalScore += player; }
     }
 
-    public bool HasWinner(int player, CoordinateMove moveLocation)
+    public bool HasWinner(int player, Move moveLocation)
     {
+        var coordinateMove = (CoordinateMove)moveLocation;
 
-        if (Math.Abs(_rowScores[moveLocation.Row]) == Size || Math.Abs(_columnScores[moveLocation.Column]) == Size)
+        if (Math.Abs(_rowScores[coordinateMove.Row]) == Size || Math.Abs(_columnScores[coordinateMove.Column]) == Size)
         {
             return true; 
         }
