@@ -30,10 +30,9 @@ public class CoordinateMove : Move
         Column = other.Column;
     }
 
-
     public override int GetHashCode()
     {
-        return (Row+1) * 10 + Column;
+        return Row * 10 + Column;
     }
 
     public override bool Equals(object? other)

@@ -64,6 +64,11 @@ public class TicTacToeState : IState
         return false;
     }
 
+    public override int GetHashCode()
+    {
+        return String.Join("", Squares).GetHashCode();
+    }
+
     private List<List<int>> initialiseSquares(int size)
     {
         var output = new List<List<int>>();

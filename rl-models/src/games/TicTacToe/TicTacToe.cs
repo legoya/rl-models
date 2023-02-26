@@ -8,6 +8,7 @@ public class TicTacToe : IGame
 {
     public HashSet<Move> AvailableMoves {get; private set;}
     public IState State {get; private set;}
+    public List<int> StateHashHistory {get; private set;}
     public GameResult GameResult {get; private set;}
     private int _size {get;}
 
@@ -15,6 +16,7 @@ public class TicTacToe : IGame
     {
         AvailableMoves = initialiseAvailableMoves(size);
         State = new TicTacToeState(size);
+        StateHashHistory = new List<int>();
         GameResult = GameResult.Incomplete;
         _size = size;
     }
@@ -51,6 +53,7 @@ public class TicTacToe : IGame
         
         AvailableMoves.Remove(location);
         State.Update(player, (CoordinateMove)moveLocation);
+        StateHashHistory.Add(State.GetHashCode());
         GameResult = determinGameResult(player, moveLocation);
     }
 
