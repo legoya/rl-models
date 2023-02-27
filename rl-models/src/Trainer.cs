@@ -22,7 +22,11 @@ public static class Trainer
 
             if (completedGame.GameResult is models.GameResult.Player1Win) { a1Wins++; }
 
-            if (i % 100 == 0) { Console.WriteLine($"Agent 1 win rate: {Math.Round(a1Wins/i, 4)}"); }
+            if (i % 500 == 0)
+            {
+                Console.WriteLine($"Agent 1 win rate: {Math.Round(a1Wins*100/500, 4)}%");
+                a1Wins = 0.0;
+            }
             
             learnFromGame(completedGame, agent1, agent2);
         }
@@ -33,6 +37,9 @@ public static class Trainer
         if (agent1 is LearningAgent)
         {
             ((LearningAgent)agent1).Learn(game.StateHashHistory, game.GameResult);
+            return;
         }
+
+        ((LearningAgent)agent2).Learn(game.StateHashHistory, game.GameResult);
     }
 }
