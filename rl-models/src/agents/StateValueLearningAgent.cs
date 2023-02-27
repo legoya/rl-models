@@ -1,3 +1,5 @@
+using System.IO;
+using System.Text.Json;
 using src.models;
 using src.games;
 
@@ -10,7 +12,7 @@ public class StateValueLearningAgent : LearningAgent
     private double _learningRate;
     private double _explorationRate;
     private double _discountFactor;
-    private Dictionary<int, double> _stateValueMap;
+    private Dictionary<int, double> _stateValueMap {get; set;}
     
     public StateValueLearningAgent(int player, double learningRate, double explorationRate, double discountFactor) : base(player)
     {
@@ -63,6 +65,25 @@ public class StateValueLearningAgent : LearningAgent
         }
 
         return;
+    }
+
+    public override void SaveLearning(string gameName)
+    {
+        string fileName = gameName + "StateValues.json"; 
+        string jsonString = JsonSerializer.Serialize(_stateValueMap);
+        File.WriteAllText(fileName, jsonString);
+        return;
+    }
+
+    public override void LoadLearning(string gameName)
+    {
+        var fileName = gameName + "StateValues.json";
+
+        if(File.Exists(fileName))
+        {
+            var pastValues = JsonSerializer.Deserialize<Dictionary<int, double>>(File.ReadAllText(fileName));
+            if (pastValues is not null) { _stateValueMap = pastValues; }
+        }
     }
 
     private static double determineReward(GameResult result)

@@ -1,3 +1,4 @@
+using src.games;
 using src.models;
 
 
@@ -8,4 +9,6 @@ public abstract class LearningAgent : Agent
 {
     public LearningAgent(int player) : base(player) {}
     public abstract void Learn(List<int> stateHistory, GameResult result);
+    public abstract void SaveLearning(string gameName);
+    public abstract void LoadLearning(string gameName);
 }

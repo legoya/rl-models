@@ -13,6 +13,8 @@ public static class Trainer
         {
             throw new ArgumentException("At least one of the suppied agents must be a LearningAgent");
         }
+        
+        loadLearnedValues(agent1, agent2, game.GetType().Name);
 
         double a1Wins = 0.0;
 
@@ -30,6 +32,8 @@ public static class Trainer
             
             learnFromGame(completedGame, agent1, agent2);
         }
+
+        saveLearnedValues(agent1, agent2, game.GetType().Name);
     }
 
     private static void learnFromGame(IGame game, Agent agent1, Agent agent2)
@@ -41,5 +45,27 @@ public static class Trainer
         }
 
         ((LearningAgent)agent2).Learn(game.StateHashHistory, game.GameResult);
+    }
+
+    private static void loadLearnedValues(Agent agent1, Agent agent2, string gameName)
+    {
+        if (agent1 is LearningAgent)
+        {
+            ((LearningAgent)agent1).LoadLearning(gameName);
+            return;
+        }
+
+        ((LearningAgent)agent2).LoadLearning(gameName);
+    }
+
+    private static void saveLearnedValues(Agent agent1, Agent agent2, string gameName)
+    {
+        if (agent1 is LearningAgent)
+        {
+            ((LearningAgent)agent1).SaveLearning(gameName);
+            return;
+        }
+
+        ((LearningAgent)agent2).SaveLearning(gameName);
     }
 }

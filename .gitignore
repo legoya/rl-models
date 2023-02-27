@@ -406,3 +406,6 @@ ASALocalRun/
 
 # Other IDE file
 .vscode
+
+# Cache values
+rl-models/*.json
