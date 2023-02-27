@@ -24,9 +24,9 @@ public static class Trainer
 
             if (completedGame.GameResult is models.GameResult.Player1Win) { a1Wins++; }
 
-            if (i % 500 == 0)
+            if (i % 1000 == 0)
             {
-                Console.WriteLine($"Agent 1 win rate: {Math.Round(a1Wins*100/500, 4)}%");
+                Console.WriteLine($"Agent 1 win rate: {Math.Round(a1Wins*100/1000, 4)}%");
                 a1Wins = 0.0;
             }
             

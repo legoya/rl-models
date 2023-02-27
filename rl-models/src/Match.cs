@@ -8,7 +8,7 @@ namespace src;
 
 public static class Match
 {
-    public static IGame Play(IGame game, Agent agent1, Agent agent2)
+    public static IGame Play(IGame game, Agent agent1, Agent agent2, bool debug=false)
     {
         var gameInstance = game.Copy();
         var activeAgent = agent1;
@@ -17,6 +17,8 @@ public static class Match
         {
             var selectedMove = activeAgent.SelectMove(gameInstance);
             gameInstance.MakeMove(activeAgent.Player, selectedMove);
+
+            if (debug) { Console.WriteLine(gameInstance); }
 
             activeAgent = alternateActive(activeAgent, agent1, agent2);
         }
