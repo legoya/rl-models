@@ -13,12 +13,18 @@ public static class Match
         var gameInstance = game.Copy();
         var activeAgent = agent1;
 
+        var display = new Display(gameInstance.State.Squares);
+
         while (gameInstance.GameResult == GameResult.Incomplete)
         {
             var selectedMove = activeAgent.SelectMove(gameInstance);
             gameInstance.MakeMove(activeAgent.Player, selectedMove);
 
-            if (debug) { Console.WriteLine(gameInstance); }
+            if (debug == true)
+            {
+                Console.WriteLine(gameInstance);
+                Console.WriteLine(display);
+            }
 
             activeAgent = alternateActive(activeAgent, agent1, agent2);
         }
