@@ -25,6 +25,7 @@ public class HumanAgent : Agent
 
         if (!currentGame.AvailableMoves.Contains(selectedMove))
         {
+            Console.WriteLine("You can not select and already occupied location, please select again");
             return SelectMove(currentGame);
         }
 

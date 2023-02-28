@@ -11,6 +11,7 @@ public class TicTacToe : IGame
     public List<int> StateHashHistory {get; private set;}
     public GameResult GameResult {get; private set;}
     private int _size {get;}
+    private Display _display;
 
     public TicTacToe(int size)
     {
@@ -19,18 +20,12 @@ public class TicTacToe : IGame
         StateHashHistory = new List<int>();
         GameResult = GameResult.Incomplete;
         _size = size;
+        _display = new Display(State.Squares);
     }
 
     public override string ToString()
     {
-        var output = "";
-        for (int row = 0; row < State.Squares.Count; row++) 
-        {
-            var rowString = String.Join("\t", State.Squares[row]) + "\n";
-            output += rowString;
-        }
-
-        return output;
+        return _display.ToString();
     }
 
     public IGame Copy()
@@ -53,6 +48,7 @@ public class TicTacToe : IGame
         AvailableMoves.Remove(location);
         State.Update(player, (CoordinateMove)moveLocation);
         StateHashHistory.Add(State.GetHashCode());
+        _display.UpdateWithMove(player, moveLocation);
         GameResult = determinGameResult(player, moveLocation);
     }
 
