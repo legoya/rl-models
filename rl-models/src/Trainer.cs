@@ -14,21 +14,14 @@ public static class Trainer
             throw new ArgumentException("At least one of the suppied agents must be a LearningAgent");
         }
         
+        var statistics = new TrainingStatistics(numberOfGames, 0.1);
         loadLearnedValues(agent1, agent2, game.GetType().Name);
-
-        double a1Wins = 0.0;
 
         for (int i = 1; i < numberOfGames+1; i++)
         {
             var completedGame = Match.Play(game, agent1, agent2);
-
-            if (completedGame.GameResult is models.GameResult.Player1Win) { a1Wins++; }
-
-            if (i % 1000 == 0)
-            {
-                Console.WriteLine($"Agent 1 win rate: {Math.Round(a1Wins*100/1000, 4)}%");
-                a1Wins = 0.0;
-            }
+            statistics.UpdateStats(completedGame.GameResult);
+            statistics.PrintStatistics(i);
             
             learnFromGame(completedGame, agent1, agent2);
         }
