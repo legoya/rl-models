@@ -8,7 +8,7 @@ public class TicTacToe : IGame
 {
     public HashSet<Move> AvailableMoves {get; private set;}
     public IState State {get; private set;}
-    public List<int> StateHashHistory {get; private set;}
+    public List<int> StateHistory {get; private set;}
     public GameResult GameResult {get; private set;}
     private int _size {get;}
     private Display _display;
@@ -17,7 +17,7 @@ public class TicTacToe : IGame
     {
         AvailableMoves = initialiseAvailableMoves(size);
         State = new TicTacToeState(size);
-        StateHashHistory = new List<int>();
+        StateHistory = new List<int>();
         GameResult = GameResult.Incomplete;
         _size = size;
         _display = new Display(State.Squares);
@@ -25,7 +25,6 @@ public class TicTacToe : IGame
 
     public override string ToString()
     {
-        Console.WriteLine(AvailableMoves);
         return _display.ToString();
     }
 
@@ -48,8 +47,8 @@ public class TicTacToe : IGame
         
         AvailableMoves.Remove(location);
         State.Update(player, (CoordinateMove)moveLocation);
-        StateHashHistory.Add(State.GetHashCode());
-        _display.UpdateWithMove(player, moveLocation);
+        StateHistory.Add(State.GetHashCode());
+        _display.Update(State.Squares);
         GameResult = determinGameResult(player, moveLocation);
     }
 
@@ -69,17 +68,17 @@ public class TicTacToe : IGame
 
     private HashSet<Move> initialiseAvailableMoves(int size)
     {
-        HashSet<Move> output = new();
+        HashSet<Move> availableMoves = new();
 
         foreach (int row in Enumerable.Range(0, size))
         {
             foreach (int column in Enumerable.Range(0, size))
             {
-                var location = new CoordinateMove(row, column);
-                output.Add(location);
+                var moveLocation = new CoordinateMove(row, column);
+                availableMoves.Add(moveLocation);
             }
         }
 
-        return output;
+        return availableMoves;
     }
 }

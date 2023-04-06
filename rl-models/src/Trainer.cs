@@ -33,11 +33,11 @@ public static class Trainer
     {
         if (agent1 is LearningAgent)
         {
-            ((LearningAgent)agent1).Learn(game.StateHashHistory, game.GameResult);
+            ((LearningAgent)agent1).Learn(game.StateHistory, game.GameResult);
             return;
         }
 
-        ((LearningAgent)agent2).Learn(game.StateHashHistory, game.GameResult);
+        ((LearningAgent)agent2).Learn(game.StateHistory, game.GameResult);
     }
 
     private static void loadLearnedValues(Agent agent1, Agent agent2, string gameName)
