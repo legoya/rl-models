@@ -47,4 +47,9 @@ public class CoordinateMove : Move
         return false; 
     }
 
+    public override string ToString()
+    {
+        return $"Row {Row}, Col: {Column}";
+    }
+
 }

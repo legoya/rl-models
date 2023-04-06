@@ -25,6 +25,7 @@ public class TicTacToe : IGame
 
     public override string ToString()
     {
+        Console.WriteLine(AvailableMoves);
         return _display.ToString();
     }
 

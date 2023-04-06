@@ -32,6 +32,19 @@ public class Display
 
     public void UpdateWithMove(int player, Move lastMove)
     {
+        Console.WriteLine($"Enter the row number for your move (1-{lastMove.ToString()})");
+
+        var marker = player == 1 ? Display.Player1Marker : Display.Player2Marker;
+        var lenOfRowAndDivider = (_displayWidth + 1) * 2;
+
+        var indexOfStartRow = ((CoordinateMove)lastMove).Row * lenOfRowAndDivider;
+
+        var indexInColumn = (Display.EmptyCell.Length + 1) * ((CoordinateMove)lastMove).Column + (Display.EmptyCell.Length / 2);
+
+        var markerIndex = indexOfStartRow + indexInColumn;
+
+        _displayString = _displayString.Substring(0, markerIndex) + marker + _displayString.Substring(markerIndex+1);
+
         return;
     }
 
