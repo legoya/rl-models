@@ -36,17 +36,16 @@ public class ConnectFourState : IState
         throw new NotImplementedException();
     }
 
+    public override int GetHashCode()
+    {
+        var squaresString = "";
+        foreach (List<int> row in Squares)
+        {
+            squaresString += String.Join("", row);
+        }
 
-//     public override int GetHashCode()
-//     {
-//         var squaresString = "";
-//         foreach (List<int> row in Squares)
-//         {
-//             squaresString += String.Join("", row);
-//         }
-
-//         return squaresString.GetHashCode();
-//     }
+        return squaresString.GetHashCode();
+    }
 
     private static List<List<int>> initialiseSquares(int numberOfRows, int numberOfColumns)
     {

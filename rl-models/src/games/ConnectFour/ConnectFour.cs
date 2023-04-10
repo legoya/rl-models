@@ -16,7 +16,7 @@ public class ConnectFour : IGame
 
     public ConnectFour(int numberOfRows, int numberOfColumns)
     {
-        AvailableMoves = f(numberOfColumns);
+        AvailableMoves = initialiseAvailableMoves(numberOfColumns);
         State = new ConnectFourState(numberOfRows, numberOfColumns);
         StateHistory = new List<int>();
         GameResult = GameResult.Incomplete;
@@ -25,10 +25,10 @@ public class ConnectFour : IGame
         _display = new Display(State.Squares);
     }
 
-//     public override string ToString()
-//     {
-//         return _display.ToString();
-//     }
+    public override string ToString()
+    {
+        return _display.ToString();
+    }
 
 //     public IGame Copy()
 //     {
@@ -68,7 +68,7 @@ public class ConnectFour : IGame
 
 //     }
 
-    private HashSet<Move> f(int numberOfColumns)
+    private static HashSet<Move> initialiseAvailableMoves(int numberOfColumns)
     {
         HashSet<Move> availableMoves = new();
 
