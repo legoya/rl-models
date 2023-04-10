@@ -1,3 +1,6 @@
+## todos
+add connect 4
+
 ## Quick Start
 
 build and run

@@ -1,5 +1,4 @@
 using System.Text;
-using src.models;
 
 
 namespace src;
@@ -8,68 +7,67 @@ namespace src;
 public class Display
 {
     private static string EmptyCell = "     ";
-    private static string Player1Marker = "X";
-    private static string Player2Marker = "O";
+    private static string Player1MarkerCell = "  X  ";
+    private static string Player2MarkerCell = "  O  ";
     private static string VericalDivider = "|";
     private static string HorizontalDivider = "-";
     private int _displayRows;
     private int _displayColumns;
     private int _displayWidth;
-    private string _displayString;
+    private string _displayAsString;
 
     public Display(List<List<int>> cells)
     {
         _displayRows = cells.Count;
         _displayColumns = cells[0].Count;
         _displayWidth = Display.EmptyCell.Length * _displayColumns + (_displayColumns - 1) * VericalDivider.Length;
-        _displayString = initialiseDisplay(cells);
+        _displayAsString = buildDisplay(cells);
     }
 
     public override string ToString()
     {
-        return _displayString;
+        return _displayAsString;
     }
 
-    public void UpdateWithMove(int player, Move lastMove)
+    public void Update(List<List<int>> cells)
     {
-        Console.WriteLine($"Enter the row number for your move (1-{lastMove.ToString()})");
-
-        var marker = player == 1 ? Display.Player1Marker : Display.Player2Marker;
-        var lenOfRowAndDivider = (_displayWidth + 1) * 2;
-
-        var indexOfStartRow = ((CoordinateMove)lastMove).Row * lenOfRowAndDivider;
-
-        var indexInColumn = (Display.EmptyCell.Length + 1) * ((CoordinateMove)lastMove).Column + (Display.EmptyCell.Length / 2);
-
-        var markerIndex = indexOfStartRow + indexInColumn;
-
-        _displayString = _displayString.Substring(0, markerIndex) + marker + _displayString.Substring(markerIndex+1);
-
-        return;
+        _displayAsString = buildDisplay(cells);
     }
 
-    private string initialiseDisplay(List<List<int>> cells)
+    private string buildDisplay(List<List<int>> cells)
     {
         var displayStringBuilder = new StringBuilder();
 
         for (int iRow = 0; iRow < _displayRows - 1; iRow++)
         {
-            displayStringBuilder.Append(emptyRow());
+            displayStringBuilder.Append(displayRow(cells[iRow]));
             displayStringBuilder.Append(horizontalDivider());
         }
 
-        displayStringBuilder.Append(emptyRow());
+        displayStringBuilder.Append(displayRow(cells[_displayColumns-1]));
 
         return displayStringBuilder.ToString();
     }
 
-    private string emptyRow()
+    private string displayRow(List<int> cells)
     {
         var rowStringBuilder = new StringBuilder();
 
         for (int iCol = 0; iCol < _displayColumns - 1; iCol++)
         {
-            rowStringBuilder.Append(Display.EmptyCell);
+            if (cells[iCol] == 0)
+            {
+                rowStringBuilder.Append(Display.EmptyCell);
+            }
+            else if (cells[iCol] == 1)
+            {
+                rowStringBuilder.Append(Display.Player1MarkerCell);
+            }
+            else
+            {
+                rowStringBuilder.Append(Display.Player2MarkerCell);
+            }
+            
             rowStringBuilder.Append(Display.VericalDivider);
         }
 
