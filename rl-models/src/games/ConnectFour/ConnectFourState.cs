@@ -9,6 +9,7 @@ public class ConnectFourState : IState
     public List<List<int>> Squares { get; private set;}
     public int NumberOfRows;
     public int NumberOfColumns;
+    public List<int> NumberOfMarkersInColumn;
 
 
     public ConnectFourState(int numberOfRows, int numberOfColumns)
@@ -16,7 +17,7 @@ public class ConnectFourState : IState
         Squares = initialiseSquares(numberOfRows, numberOfColumns);
         NumberOfRows = numberOfRows;
         NumberOfColumns = numberOfColumns;
-
+        NumberOfMarkersInColumn = new List<int>(new int[numberOfColumns]);
     }
     
     public ConnectFourState(ConnectFourState other)
@@ -24,16 +25,26 @@ public class ConnectFourState : IState
         Squares = copySquares(other.Squares);
         NumberOfRows = other.NumberOfRows;
         NumberOfColumns = other.NumberOfColumns;
+        NumberOfMarkersInColumn = copyNumberOfMarkersInColumn(other);
     }
 
-    void IState.Update(int player, Move moveLocation)
+    public void Update(int player, Move moveLocation)
     {
-        throw new NotImplementedException();
+        var moveColumn = ((VerticalMove)moveLocation).Column;
+        var moveRow = NumberOfMarkersInColumn[moveColumn];
+
+        validateMoveLocation(moveRow, moveColumn);
+
+        Squares[moveRow][moveColumn] = player;
     }
 
-    bool IState.HasWinner(int player, Move moveLocation)
+    public bool HasWinner(int player, Move moveLocation)
     {
-        throw new NotImplementedException();
+        // basic implmentation first.
+
+        // will be some kind of square search expansion from the move location outward in 4 directions
+        
+        return NumberOfMarkersInColumn.Max() > 5;
     }
 
     public override int GetHashCode()
@@ -70,11 +81,26 @@ public class ConnectFourState : IState
         return output;
     }
 
-    //     private void validateMoveLocation(int Row, int Column)
-    //     {
-    //         if (Squares[Row][Column] != 0)
-    //         {
-    //             throw new ArgumentException("The supplied move is invalid as it attempts to use an already occupied location");
-    //         }
-    //     }
+    private static List<int> copyNumberOfMarkersInColumn(ConnectFourState other)
+    {
+        var numberOfMarkersInColumn = new List<int>(new int[other.NumberOfColumns]);
+
+        for (int r = 0; r < other.NumberOfRows; r++)
+        {
+            for (int c = 0; c < other.NumberOfColumns; c++)
+            {
+                numberOfMarkersInColumn[c] += other.Squares[r][c] == 0 ? 0 : 1;
+            }
+        }
+
+        return numberOfMarkersInColumn;
+    }
+
+        private void validateMoveLocation(int Row, int Column)
+        {
+            if (Squares[Row][Column] != 0)
+            {
+                throw new ArgumentException("The supplied move is invalid as it attempts to use an already occupied location");
+            }
+        }
 }

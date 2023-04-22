@@ -1,4 +1,5 @@
 using src.models;
+using src.games.ConnectFour.extensions;
 
 
 namespace src.games.ConnectFour;
@@ -30,45 +31,51 @@ public class ConnectFour : IGame
         return _display.ToString();
     }
 
-//     public IGame Copy()
-//     {
-//         return new TicTacToe(_size);
-//     }
+    public IGame Copy()
+    {
+        return new ConnectFour(_numberOfRows, _numberOfColumns);
+    }
 
-//     public IState CalculateStateAfterMove(int player, Move moveLocation)
-//     {
-//         var StateCopy = new ConnectFourState((ConnectFourState)State);
-//         StateCopy.Update(player, (CoordinateMove)moveLocation);
+    public IState CalculateStateAfterMove(int player, Move moveLocation)
+    {
+        var StateCopy = new ConnectFourState((ConnectFourState)State);
+        StateCopy.Update(player, (VerticalMove)moveLocation);
 
-//         return StateCopy;
-//     }
+        return StateCopy;
+    }
 
-//     public void MakeMove(int player, Move moveLocation)
-//     {
-//         var location = new CoordinateMove((CoordinateMove)moveLocation);
+    public void MakeMove(int player, Move moveLocation)
+    {
+        var location = new VerticalMove((VerticalMove)moveLocation);
         
-//         AvailableMoves.Remove(location);
-//         State.Update(player, (CoordinateMove)moveLocation);
-//         StateHistory.Add(State.GetHashCode());
-//         _display.Update(State.Squares);
-//         GameResult = determinGameResult(player, moveLocation);
-//     }
+        State.Update(player, (VerticalMove)moveLocation);
+        
+        if (State.ConnectFourColumnIsFull(location.Column))  // TODO abstract
+        {
+            AvailableMoves.Remove(location); 
+        }
+        
 
-//     private GameResult determinGameResult(int player, Move moveLocation)
-//     {
+        StateHistory.Add(State.GetHashCode());
+        _display.Update(State.Squares);
+        GameResult = determinGameResult(player, moveLocation);
+    }
 
-//         if (State.HasWinner(player, (CoordinateMove)moveLocation))
-//         {
-//             return player == 1 ? models.GameResult.Player1Win : models.GameResult.Player2Win;
-//         }
+    private GameResult determinGameResult(int player, Move moveLocation)
+    {
 
-//         if (AvailableMoves.Count == 0) { return models.GameResult.Draw; }
+        if (State.HasWinner(player, (CoordinateMove)moveLocation))
+        {
+            return player == 1 ? models.GameResult.Player1Win : models.GameResult.Player2Win;
+        }
 
-//         return models.GameResult.Incomplete;
+        if (AvailableMoves.Count == 0) { return models.GameResult.Draw; }
 
-//     }
+        return models.GameResult.Incomplete;
 
-    private static HashSet<Move> initialiseAvailableMoves(int numberOfColumns)
+    }
+
+    private HashSet<Move> initialiseAvailableMoves(int numberOfColumns)
     {
         HashSet<Move> availableMoves = new();
 

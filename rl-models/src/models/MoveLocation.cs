@@ -7,6 +7,11 @@ public class VerticalMove : Move
 {
     public int Column {get; set;}
 
+    public VerticalMove(VerticalMove other)
+    {
+        Column = other.Column;
+    }
+
     public VerticalMove(int column)
     {
         Column = column;
