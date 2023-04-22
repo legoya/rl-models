@@ -44,7 +44,7 @@ public class Display
             displayStringBuilder.Append(horizontalDivider());
         }
 
-        displayStringBuilder.Append(displayRow(cells[_displayColumns-1]));
+        displayStringBuilder.Append(displayRow(cells[_displayRows-1]));
 
         return displayStringBuilder.ToString();
     }
