@@ -14,9 +14,8 @@ public class HumanAgent : Agent
         var numberOfColumns = ((ConnectFourState)currentGame.State).NumberOfColumns;
         
         Console.WriteLine($"Enter the column number for your move (1-{numberOfColumns})");
-        // var column = Convert.ToInt32(Console.ReadLine());
-        var column = 1;
-        
+        var column = Convert.ToInt32(Console.ReadLine());
+
         var selectedMove = new VerticalMove(--column);  // Human readable is 1 to size, State is 0-indexed so needs -1
 
         if (!currentGame.AvailableMoves.Contains(selectedMove))
