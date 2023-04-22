@@ -98,7 +98,7 @@ public class ConnectFourState : IState
 
         private void validateMoveLocation(int Row, int Column)
         {
-            if (Squares[Row][Column] != 0)
+            if (Squares[NumberOfRows-1][Column] != 0)  // is the column full
             {
                 throw new ArgumentException("The supplied move is invalid as it attempts to use an already occupied location");
             }

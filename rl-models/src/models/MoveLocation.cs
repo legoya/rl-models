@@ -16,6 +16,23 @@ public class VerticalMove : Move
     {
         Column = column;
     }
+
+    public override int GetHashCode()
+    {
+        return Column;
+    }
+
+    public override bool Equals(object? other)
+    {
+        if (other is null) { return false; }
+        if (other is VerticalMove)
+        {
+            var otherCoordinateMove = (VerticalMove)other;
+            return Column == otherCoordinateMove.Column;
+        }
+
+        return false; 
+    }
 }
 
 public class CoordinateMove : Move

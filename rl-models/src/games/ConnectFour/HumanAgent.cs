@@ -11,13 +11,12 @@ public class HumanAgent : Agent
 
     public override Move SelectMove(IGame currentGame)
     {
-        var numberOfColumns = ((ConnectFourState)currentGame.State).NumberOfMarkersInColumn;
+        var numberOfColumns = ((ConnectFourState)currentGame.State).NumberOfColumns;
         
         Console.WriteLine($"Enter the column number for your move (1-{numberOfColumns})");
-        var column = Convert.ToInt32(Console.ReadLine());
-
-        Console.WriteLine();
-
+        // var column = Convert.ToInt32(Console.ReadLine());
+        var column = 1;
+        
         var selectedMove = new VerticalMove(--column);  // Human readable is 1 to size, State is 0-indexed so needs -1
 
         if (!currentGame.AvailableMoves.Contains(selectedMove))

@@ -55,7 +55,6 @@ public class ConnectFour : IGame
             AvailableMoves.Remove(location); 
         }
         
-
         StateHistory.Add(State.GetHashCode());
         _display.Update(State.Squares);
         GameResult = determinGameResult(player, moveLocation);
@@ -64,7 +63,7 @@ public class ConnectFour : IGame
     private GameResult determinGameResult(int player, Move moveLocation)
     {
 
-        if (State.HasWinner(player, (CoordinateMove)moveLocation))
+        if (State.HasWinner(player, (VerticalMove)moveLocation))
         {
             return player == 1 ? models.GameResult.Player1Win : models.GameResult.Player2Win;
         }
@@ -86,20 +85,5 @@ public class ConnectFour : IGame
         }
 
         return availableMoves;
-    }
-
-    IGame IGame.Copy()
-    {
-        throw new NotImplementedException();
-    }
-
-    IState IGame.CalculateStateAfterMove(int player, Move moveLocation)
-    {
-        throw new NotImplementedException();
-    }
-
-    void IGame.MakeMove(int player, Move moveLocation)
-    {
-        throw new NotImplementedException();
     }
 }
