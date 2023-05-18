@@ -20,7 +20,7 @@ public class HumanAgent : Agent
 
         if (!currentGame.AvailableMoves.Contains(selectedMove))
         {
-            Console.WriteLine("You must select a column that is not already filled, please select again");
+            Console.WriteLine("You must select a column that is in range and not already filled, please select again");
             return SelectMove(currentGame);
         }
 

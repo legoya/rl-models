@@ -17,11 +17,14 @@ using src.games.ConnectFour;
 // l1.LoadLearning(hg.GetType().Name);
 // Match.Play(hg, l1, h2, debug: true);
 
-
 var h1 = new src.games.ConnectFour.HumanAgent(1);
+var r1 = new RandomAgent(1);
 var r2 = new RandomAgent(-1);
 
-var cfg = new ConnectFour(6, 7);
+// var ttt = new TicTacToe(3);
 
+// Match.Play(ttt, r1, r2, debug: true);
+
+var cfg = new ConnectFour(6, 7);
 Match.Play(cfg, h1, r2, debug: true);
 

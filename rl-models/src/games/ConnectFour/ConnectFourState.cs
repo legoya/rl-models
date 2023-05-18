@@ -11,7 +11,6 @@ public class ConnectFourState : IState
     public int NumberOfColumns;
     public List<int> NumberOfMarkersInColumn;
 
-
     public ConnectFourState(int numberOfRows, int numberOfColumns)
     {
         Squares = initialiseSquares(numberOfRows, numberOfColumns);
@@ -31,20 +30,21 @@ public class ConnectFourState : IState
     public void Update(int player, Move moveLocation)
     {
         var moveColumn = ((VerticalMove)moveLocation).Column;
-        var moveRow = NumberOfMarkersInColumn[moveColumn];
+        var moveRow = NumberOfRows - NumberOfMarkersInColumn[moveColumn] - 1;
 
         validateMoveLocation(moveRow, moveColumn);
 
+        NumberOfMarkersInColumn[moveColumn]++;
+        
         Squares[moveRow][moveColumn] = player;
     }
 
     public bool HasWinner(int player, Move moveLocation)
     {
-        // basic implmentation first.
+        var moveColumn = ((VerticalMove)moveLocation).Column;
+        var moveRow = NumberOfRows - NumberOfMarkersInColumn[moveColumn];
 
-        // will be some kind of square search expansion from the move location outward in 4 directions
-        
-        return NumberOfMarkersInColumn.Max() > 5;
+        return Connections.HasRequiredConnections(Squares, player, moveRow, moveColumn);
     }
 
     public override int GetHashCode()
@@ -96,11 +96,11 @@ public class ConnectFourState : IState
         return numberOfMarkersInColumn;
     }
 
-        private void validateMoveLocation(int Row, int Column)
+    private void validateMoveLocation(int Row, int Column)
+    {
+        if (Squares[Row][Column] != 0)  // is the column full
         {
-            if (Squares[NumberOfRows-1][Column] != 0)  // is the column full
-            {
-                throw new ArgumentException("The supplied move is invalid as it attempts to use an already occupied location");
-            }
+            throw new ArgumentException("The supplied move is invalid as it attempts to use an already occupied location");
         }
+    }
 }

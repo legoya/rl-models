@@ -55,23 +55,11 @@ public class Display
 
         for (int iCol = 0; iCol < _displayColumns - 1; iCol++)
         {
-            if (cells[iCol] == 0)
-            {
-                rowStringBuilder.Append(Display.EmptyCell);
-            }
-            else if (cells[iCol] == 1)
-            {
-                rowStringBuilder.Append(Display.Player1MarkerCell);
-            }
-            else
-            {
-                rowStringBuilder.Append(Display.Player2MarkerCell);
-            }
-            
+            rowStringBuilder.Append(displayCell(cells[iCol]));
             rowStringBuilder.Append(Display.VericalDivider);
         }
 
-        rowStringBuilder.Append(Display.EmptyCell);
+        rowStringBuilder.Append(displayCell(cells[_displayColumns-1]));
         rowStringBuilder.Append("\n");
 
         return rowStringBuilder.ToString();
@@ -89,5 +77,15 @@ public class Display
         horizontalDividerStringBuilder.Append("\n");
 
         return horizontalDividerStringBuilder.ToString();
+    }
+
+    private string displayCell(int cell)
+    {
+        return cell switch
+        {
+            1 => Display.Player1MarkerCell,
+            -1 => Display.Player2MarkerCell,
+            _ => Display.EmptyCell
+        };
     }
 }

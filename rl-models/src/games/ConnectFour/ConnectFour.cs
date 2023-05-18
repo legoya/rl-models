@@ -1,5 +1,4 @@
 using src.models;
-using src.games.ConnectFour.extensions;
 
 
 namespace src.games.ConnectFour;
@@ -50,7 +49,7 @@ public class ConnectFour : IGame
         
         State.Update(player, (VerticalMove)moveLocation);
         
-        if (State.ConnectFourColumnIsFull(location.Column))  // TODO abstract
+        if (isColumnFull(location.Column))
         {
             AvailableMoves.Remove(location); 
         }
@@ -85,5 +84,12 @@ public class ConnectFour : IGame
         }
 
         return availableMoves;
+    }
+
+    private bool isColumnFull(int column)
+    {
+
+        var connectFourState = (ConnectFourState)State;
+        return connectFourState.NumberOfMarkersInColumn[column] == _numberOfRows;
     }
 }
