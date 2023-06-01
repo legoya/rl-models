@@ -10,7 +10,7 @@ public static class Match
 {
     public static IGame Play(IGame game, Agent agent1, Agent agent2, bool debug=false)
     {
-        var gameInstance = game.Copy();
+        var gameInstance = game.NewGameFromConfiguration();
         var activeAgent = agent1;
 
         while (gameInstance.GameResult == GameResult.Incomplete)

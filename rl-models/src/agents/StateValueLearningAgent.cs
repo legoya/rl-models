@@ -50,9 +50,10 @@ public class StateValueLearningAgent : LearningAgent
         return selectedMove;
     }
 
-    public override void Learn(List<int> stateHistory, GameResult result)
+    public override void Learn(History gameHistory, GameResult result)
     {
         var reward = determineReward(result);
+        var stateHistory = gameHistory.States;
 
         for (int i = stateHistory.Count-1; i >= 0; i--)
         {

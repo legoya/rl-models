@@ -8,7 +8,7 @@ public class ConnectFour : IGame
 {
     public HashSet<Move> AvailableMoves {get; private set;}
     public IState State {get; private set;}
-    public List<int> StateHistory {get; private set;}
+    public History History {get; private set;}
     public GameResult GameResult {get; private set;}
     private int _numberOfRows {get;}
     private int _numberOfColumns {get;}
@@ -18,7 +18,7 @@ public class ConnectFour : IGame
     {
         AvailableMoves = initialiseAvailableMoves(numberOfColumns);
         State = new ConnectFourState(numberOfRows, numberOfColumns);
-        StateHistory = new List<int>();
+        History = new History(State);
         GameResult = GameResult.Incomplete;
         _numberOfRows = numberOfRows;
         _numberOfColumns = numberOfColumns;
@@ -30,7 +30,7 @@ public class ConnectFour : IGame
         return _display.ToString();
     }
 
-    public IGame Copy()
+    public IGame NewGameFromConfiguration()
     {
         return new ConnectFour(_numberOfRows, _numberOfColumns);
     }
@@ -54,7 +54,7 @@ public class ConnectFour : IGame
             AvailableMoves.Remove(location); 
         }
         
-        StateHistory.Add(State.GetHashCode());
+        History.Append(State, moveLocation);
         _display.Update(State.Squares);
         GameResult = determinGameResult(player, moveLocation);
     }
