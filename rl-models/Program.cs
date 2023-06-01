@@ -4,13 +4,13 @@ using src.games.TicTacToe;
 using src.games.ConnectFour;
 
 
-var a1 = new StateValueLearningAgent(1, 0.4, 0.15, 0.9);
+var a1 = new src.agents.QLearningAgent(1, 0.4, 0.15, 0.9);
 var a2 = new RandomAgent(-1);
 
 var tg = new TicTacToe(3);
 Trainer.Train(tg, a1, a2, 10000);
 
-var l1 = new StateValueLearningAgent(1, 0.4, 0.0, 0.9);
+var l1 = new src.agents.QLearningAgent(1, 0.4, 0.0, 0.9);
 var h2 = new src.games.TicTacToe.HumanAgent(-1);
 var hg = new TicTacToe(3);
 
